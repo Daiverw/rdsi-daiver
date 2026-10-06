@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Diseño de una RDSI y comparación con SS7</title>
+<title>Unidades III y IV: Red Telefónica con SS7 y RDSI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700;800;900&family=Saira+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -262,24 +262,53 @@ ol.src li{margin-bottom:8px}
 .dec p{color:var(--dim);font-size:14.5px;margin:0}
 .vcard .tag{margin-bottom:8px}
 .chips .chip{min-width:92px}
+
+.calc4{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+@media (max-width:900px){.calc4{grid-template-columns:1fr}}
+.chips4{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.chip4{font:700 12px 'IBM Plex Mono',monospace;color:var(--white);background:var(--navy-2);border:1px solid var(--line);border-radius:7px;padding:10px 12px;cursor:pointer;transition:.15s;min-width:92px}
+.chip4 small{display:block;color:var(--dim);font-weight:500;font-size:10px;margin-top:2px}
+.chip4:hover{border-color:var(--cyan)}
+.chip4.sel{background:var(--cyan);color:var(--navy-0);border-color:var(--cyan)}
+.chip4.sel small{color:var(--navy-2)}
+.chip4.flag{border-color:rgba(255,178,62,.6)}
+nav.toc a.tab{border:1px solid var(--line);color:var(--white)}
+nav.toc a.tab:hover,nav.toc a.tab.active{color:var(--navy-0);background:var(--cyan);border-color:var(--cyan)}
+nav.toc .sep{width:1px;background:var(--line);margin:4px 6px}
+.partband{max-width:none;padding:70px 7vw;text-align:center;background:linear-gradient(180deg,rgba(70,214,235,.07),rgba(255,178,62,.05));border-top:1px solid var(--line)}
+.partband .big{font:800 clamp(30px,4.4vw,52px)/1.1 'Saira',sans-serif;margin:8px 0 14px}
+.partband p{color:var(--dim);max-width:820px;margin:0 auto 18px;font-size:17px}
+.partband .btnrow{justify-content:center}
+.partband a.linkback{margin:4px 6px}
+.hero .heroactions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:26px}
 </style>
 </head>
-<body>
-
 <input type="checkbox" id="navToggle">
 <header class="chrome">
-  <div class="mark"><span class="dot"></span><span>Transmisión de Datos · Unidad IV</span></div>
+  <div class="mark"><span class="dot"></span><span>Transmisión de Datos · Unidades III y IV</span></div>
   <label for="navToggle" class="burger">☰</label>
   <nav class="toc">
     <a href="#inicio">Inicio</a>
-    <a href="#diseno">Diseño</a>
-    <a href="#conexiones">Conexiones</a>
-    <a href="#funcionamiento">Funcionamiento</a>
-    <a href="#contenido">Contenido</a>
-    <a href="#arquitectura">Arquitectura</a>
-    <a href="#comparacion">RDSI vs SS7</a>
-    <a href="#explicacion">Explicación</a>
-    <a href="#vtr">En terreno</a>
+    <a href="#unidad3" class="tab" data-tab="3">Unidad III</a>
+    <a href="#unidad4" class="tab" data-tab="4">Unidad IV</a>
+    <span class="sep"></span>
+    <a href="#diseno" data-part="3">Diseño</a>
+    <a href="#conexiones" data-part="3">Conexiones</a>
+    <a href="#funcionamiento" data-part="3">Funcionamiento</a>
+    <a href="#contenido" data-part="3">Contenido</a>
+    <a href="#arquitectura" data-part="3">Arquitectura</a>
+    <a href="#senalizacion" data-part="3">Señalización SS7</a>
+    <a href="#dimensionado" data-part="3">Dimensionado</a>
+    <a href="#cierre" data-part="3">Cierre</a>
+    <a href="#iv_diseno" data-part="4">Diseño RDSI</a>
+    <a href="#iv_conexiones" data-part="4">Conexiones</a>
+    <a href="#iv_funcionamiento" data-part="4">Funcionamiento</a>
+    <a href="#iv_contenido" data-part="4">Contenido</a>
+    <a href="#iv_arquitectura" data-part="4">Arquitectura</a>
+    <a href="#iv_comparacion" data-part="4">RDSI vs SS7</a>
+    <a href="#iv_explicacion" data-part="4">Explicación</a>
+    <a href="#iv_vtr" data-part="4">En terreno</a>
+    <a href="#iv_cierre" data-part="4">Cierre</a>
   </nav>
 </header>
 
@@ -288,37 +317,46 @@ ol.src li{margin-bottom:8px}
   <canvas id="heroCanvas"></canvas>
   <div class="hero-inner">
     <img class="uft-logo-big" id="uft-seal" alt="Universidad Fermín Toro">
-    <div class="eyebrow">Actividad · Unidad IV</div>
-    <h1 class="title">Diseño de una <span class="g">RDSI</span><br>y su comparación con SS7</h1>
-    <p class="subtitle">Una RDSI para una empresa con sede central y dos oficinas, conectada a la red telefónica de la Unidad III. Con sus conexiones, su funcionamiento, su contenido, su arquitectura y la comparación con SS7.</p>
+    <div class="eyebrow">Actividades · Unidades III y IV</div>
+    <h1 class="title">Red telefónica con <span class="g">SS7</span><br>y su complemento: una <span class="g">RDSI</span></h1>
+    <p class="subtitle">En la Unidad III diseño una red telefónica para 300.000 abonados con señalización SS7. En la Unidad IV diseño una RDSI que se conecta a esa red y la comparo con SS7.</p>
     <div class="pillrow">
       <span class="pill">Transmisión de Datos</span>
       <span class="pill">Prof. Marly Rodríguez</span>
       <span class="pill">Daiver Villalobos</span>
     </div>
+    <div class="heroactions">
+      <a class="linkback" href="#unidad3">Unidad III · Red telefónica y SS7</a>
+      <a class="linkback" href="#unidad4">Unidad IV · RDSI y comparación</a>
+    </div>
     <div class="scrolldown">Desplázate para comenzar ↓</div>
   </div>
+</section>
+
+<section class="partband" id="unidad3">
+  <div class="sec-tag"><span class="num">III</span> Unidad III</div>
+  <div class="big">Diseño de una <span class="g">red telefónica</span> con SS7</div>
+  <p>Esta es la red que diseñé: tres centrales locales, dos de tránsito, un par de STP y un SCP. Con sus conexiones, su funcionamiento, su contenido, su arquitectura y su señalización.</p>
 </section>
 
 <!-- ===================== DISEÑO ===================== -->
 <section id="diseno">
   <div class="sec-tag"><span class="num">01</span> El diseño</div>
-  <h2 class="sec-title">La RDSI que diseñé</h2>
-  <p class="lead">Diseñé el acceso RDSI de una empresa. Tiene una sede central con una central privada (PBX) digital y dos oficinas. La sede se une a la central pública con un acceso primario (PRI). Cada oficina se une con accesos básicos (BRI). Esa central pública es la central local 1 de la red que diseñé en la Unidad III. Así las dos páginas forman una sola red.</p>
+  <h2 class="sec-title">La red que diseñé</h2>
+  <p class="lead">Diseñé la red telefónica de una ciudad con 300.000 abonados. Tiene tres centrales locales, dos centrales de tránsito, un par de STP y una base de datos de servicios (SCP). Usé como modelo la red metropolitana del material de la profesora: pocas centrales, grandes, y todo en pares. Así, si una pieza falla, otra la reemplaza.</p>
 
   <div class="btnrow">
-    <button class="btn on" id="bAcc">Acceso RDSI (DSS1)</button>
-    <button class="btn on" id="bCore">Red SS7 (Unidad III)</button>
+    <button class="btn on" id="bVoice">Voz (troncales)</button>
+    <button class="btn on" id="bSig">Señalización (SS7)</button>
     <button class="btn" id="bCall">▶ Mostrar una llamada</button>
-    <button class="btn warn" id="bFail">Simular falla del PRI</button>
+    <button class="btn warn" id="bFail">Simular falla del STP-1</button>
   </div>
 
   <div class="netbox">
-    <svg class="net" id="netsvg" viewBox="0 0 1000 540" role="img" aria-label="Diagrama de la RDSI diseñada y su conexión con la red SS7"></svg>
+    <svg class="net" id="netsvg" viewBox="0 0 1000 540" role="img" aria-label="Diagrama de la red telefónica diseñada"></svg>
     <div class="legend">
-      <span><span class="sw g"></span>Acceso RDSI: canales B + canal D (Q.931)</span>
       <span><span class="sw"></span>Troncales de voz (E1)</span>
-      <span><span class="sw s"></span>Señalización SS7 (ISUP)</span>
+      <span><span class="sw s"></span>Enlaces de señalización SS7 (64 kbps)</span>
       <span>Haz clic en un nodo para ver sus datos</span>
     </div>
   </div>
@@ -326,6 +364,541 @@ ol.src li{margin-bottom:8px}
 
   <div class="grid2 wide-left" style="margin-top:14px">
     <div class="panel infopanel" id="infoPanel">
+      <h3><span class="ic">◆</span>Datos del nodo</h3>
+      <p>Selecciona un nodo del diagrama. Aquí vas a ver qué hace, con qué se conecta y qué datos de tráfico maneja.</p>
+    </div>
+    <div class="panel amber">
+      <h3><span class="ic">◆</span>Supuestos del diseño</h3>
+      <ul class="clean">
+        <li><b>3 centrales locales</b> de 100.000 abonados cada una.</li>
+        <li><b>80% POTS</b> (0,05 Erl por abonado) y <b>20% RDSI</b> (0,10 Erl).</li>
+        <li>Llamada media de <b>100 s</b>. Cada llamada usa <b>3 mensajes</b> de señalización en cada sentido.</li>
+        <li>Mensaje de <b>15 octetos</b> en POTS y <b>30</b> en RDSI.</li>
+        <li>Enlace SS7 de <b>64 kbps</b>, con carga máxima de <b>30%</b>.</li>
+        <li>STP "stand alone" de <b>30.000 MSU/s</b>, que trabaja como máximo al <b>40%</b>.</li>
+        <li>Supuesto mío: el <b>30%</b> del tráfico de cada central sale hacia otras centrales. Troncales con 1% de bloqueo.</li>
+      </ul>
+      <p style="font-size:12.5px;margin-top:8px">Los códigos de punto de señalización (SPC) son ilustrativos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONEXIONES ===================== -->
+<section id="conexiones">
+  <div class="sec-tag"><span class="num">02</span> Conexiones</div>
+  <h2 class="sec-title">Cómo se conecta cada parte</h2>
+  <p class="lead">Toda central tiene dos tipos de conexión. Una lleva la voz y otra lleva el control. Van por caminos separados.</p>
+
+  <div class="grid2">
+    <div class="panel">
+      <h3><span class="ic">◆</span>Los componentes de la red</h3>
+      <ul class="clean">
+        <li><b>Abonado:</b> el teléfono o equipo conectado a la red.</li>
+        <li><b>Lazo local:</b> la línea entre el abonado y su central. Puede medir desde unos kilómetros hasta decenas de kilómetros.</li>
+        <li><b>Central local:</b> la oficina final. Da servicio a los abonados.</li>
+        <li><b>Central de tránsito:</b> junta el tráfico de varias centrales locales. Va siempre en par.</li>
+        <li><b>Troncales:</b> los enlaces entre centrales. Hoy van multiplexados por TDM.</li>
+      </ul>
+    </div>
+    <div class="panel good">
+      <h3><span class="ic">◆</span>La jerarquía de mi diseño</h3>
+      <p><b>Abonado → Central local → Central de tránsito → Central internacional.</b></p>
+      <p>Cada central local se une a las dos centrales de tránsito. Si una falla, la otra sigue. Además dejé rutas directas entre centrales locales vecinas (1 con 2, y 2 con 3). Así el tráfico entre ellas no tiene que subir al tránsito.</p>
+      <p>La señalización va por otro lado. Cada central, local o de tránsito, tiene un enlace hacia cada STP.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Tabla de conexiones del diseño</h3>
+  <div class="tablewrap">
+    <table class="spec">
+      <tr><th>Enlace</th><th>Une</th><th>Medio</th><th>Para qué sirve</th></tr>
+      <tr><td class="k">Lazo local</td><td>Abonado ↔ Central local</td><td>Par de cobre</td><td>Acceso del abonado a la red</td></tr>
+      <tr><td class="k">Troncal de voz</td><td>Central local ↔ Tránsito A y B</td><td>E1 (2,048 Mbps)</td><td>Llevar la voz. Dos rutas por central</td></tr>
+      <tr><td class="k">Ruta directa</td><td>Local 1 ↔ Local 2 ↔ Local 3</td><td>E1</td><td>Descargar el tránsito (por capacidad)</td></tr>
+      <tr><td class="k">Troncal de tránsito</td><td>Tránsito A ↔ Tránsito B ↔ Internacional</td><td>E1</td><td>Salir a otras redes y países</td></tr>
+      <tr><td class="k">Enlace A</td><td>Central local o tránsito ↔ STP</td><td>Canal de 64 kbps</td><td>Señalización de las llamadas</td></tr>
+      <tr><td class="k">Enlace A (base de datos)</td><td>STP ↔ SCP</td><td>Canal de 64 kbps</td><td>Consultas de servicios (800, portabilidad)</td></tr>
+      <tr><td class="k">Enlace C</td><td>STP-1 ↔ STP-2</td><td>Canal de 64 kbps</td><td>Que un STP tome la carga del otro</td></tr>
+    </table>
+  </div>
+
+  <h3 class="sub">Dentro de un enlace E1</h3>
+  <p style="color:var(--dim);font-size:15px;margin:0 0 6px">Un E1 tiene 32 canales de 64 kbps. Dos no llevan voz. Uno sirve para sincronizar y el otro, el 16, puede llevar un enlace de señalización SS7.</p>
+  <div class="e1" id="e1"></div>
+  <div class="legend" style="margin-top:6px">
+    <span style="color:var(--cyan)">■ Canal de voz (30)</span>
+    <span style="color:var(--dim)">■ Sincronismo (canal 0)</span>
+    <span style="color:var(--amber)">■ Señalización (canal 16)</span>
+  </div>
+  <div class="note">La ITU recomienda usar el canal 16 de un sistema PCM de 2 Mbit/s para el enlace de señalización (Rec. Q.702). Ese canal se conecta en la central como una conexión semipermanente.</div>
+</section>
+
+<!-- ===================== FUNCIONAMIENTO ===================== -->
+<section id="funcionamiento">
+  <div class="sec-tag"><span class="num">03</span> Funcionamiento</div>
+  <h2 class="sec-title">Una llamada, paso a paso</h2>
+  <p class="lead">Sigo una llamada dentro de mi diseño. El abonado A está en la central local 1. Llama al abonado B, que está en la central local 3. La llamada pasa por el Tránsito A. Usa los botones para avanzar.</p>
+
+  <div class="btnrow">
+    <button class="btn" id="sPrev">◀ Anterior</button>
+    <button class="btn on" id="sNext">Siguiente ▶</button>
+    <button class="btn" id="sPlay">▶ Reproducir</button>
+    <button class="btn" id="sReset">Reiniciar</button>
+  </div>
+  <div class="grid2 wide-left">
+    <div class="seqwrap"><svg class="seq" id="seqsvg" viewBox="0 0 860 600"></svg>
+      <div class="legend"><span><span class="sw"></span>Señal del abonado o voz</span><span><span class="sw s"></span>Mensaje SS7 (viaja por el STP)</span></div>
+    </div>
+    <div>
+      <div class="panel stepbox" id="stepBox"></div>
+      <div class="panel amber" style="margin-top:16px">
+        <h3><span class="ic">◆</span>Los tres tiempos de una llamada</h3>
+        <p><b>1. Establecer el circuito.</b> Pasos 1 a 6. Aquí trabaja la señalización.</p>
+        <p><b>2. Transferir la voz.</b> Paso 7. La voz va por las troncales. La señalización casi no se usa.</p>
+        <p><b>3. Liberar el circuito.</b> Paso 8. Los circuitos quedan libres para otra llamada.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="sub">Qué significan los mensajes</h3>
+  <div class="grid4">
+    <div class="panel"><span class="tag amber">IAM</span><p><b>Initial Address Message.</b> Pide la llamada. Lleva el número B y el circuito elegido.</p></div>
+    <div class="panel"><span class="tag amber">ACM</span><p><b>Address Complete Message.</b> Dice que el destino existe y está sonando.</p></div>
+    <div class="panel"><span class="tag amber">ANM</span><p><b>Answer Message.</b> Dice que B contestó. Se cierra el circuito de voz.</p></div>
+    <div class="panel"><span class="tag amber">REL / RLC</span><p><b>Release y Release Complete.</b> Terminan la llamada y liberan los circuitos.</p></div>
+  </div>
+  <div class="note">Estos mensajes son de la parte de usuario ISUP. En el material de la profesora aparecen como TUP/ISUP, las dos partes de usuario que arman y cierran las llamadas.</div>
+</section>
+
+<!-- ===================== CONTENIDO ===================== -->
+<section id="contenido">
+  <div class="sec-tag"><span class="num">04</span> Contenido de la unidad</div>
+  <h2 class="sec-title">Lo que hay que saber de la Unidad III</h2>
+  <p class="lead">Aquí desarrollo el contenido de la unidad, en el orden del material de la profesora. Primero de dónde viene la red telefónica. Después qué es la señalización, cómo se clasifica y cómo llegó SS7. Al final, lo que transporta mi red.</p>
+
+  <h3 class="sub">1. De la central aislada a la red telefónica</h3>
+  <div class="grid2">
+    <div class="panel">
+      <p>Hace unos 75 años la red telefónica ya existía, pero no era una red. Eran líneas conectadas a una central. Cada central atendía solo a sus abonados y estaba aislada de las demás.</p>
+      <p>Pronto se vio que la forma más eficiente de llegar más lejos era unir las centrales. Así nació la <b>PSTN</b> o RTPC, la Red Telefónica Pública Conmutada. Al unir centrales apareció el diseño de redes: dónde y cómo conectarlas.</p>
+      <p>Cuando las ciudades crecieron, se crearon más centrales. Se agruparon en áreas, con una central <b>tándem</b> que recogía el tráfico del área y lo mandaba a otras áreas o a una central de tránsito de larga distancia. Luego vinieron las centrales regionales, que unen tándems. Hoy casi todas las redes usan una jerarquía parecida.</p>
+    </div>
+    <div class="panel amber">
+      <h3><span class="ic">◆</span>Cómo se ve en mi diseño</h3>
+      <p>Mis centrales locales son las del primer nivel. Mis dos centrales de tránsito hacen el papel del tándem. La central internacional es la salida a otros países.</p>
+      <p>Una idea clave del material: un usuario cree que conectar dos teléfonos es simple. Con cientos de millones de teléfonos, no lo es. La central debe manejar los datos del abonado A, del abonado B y de la central que une la llamada.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">2. Qué es la señalización y por qué hizo falta</h3>
+  <div class="grid2">
+    <div class="panel">
+      <p>El propósito de la señalización es crear un <b>lenguaje técnico</b> para intercambiar información de control que conecte dos líneas telefónicas en cualquier parte de la red.</p>
+      <p>La señalización que más interesa es la <b>externa</b> a las centrales, la que va entre nodos. Su fin hoy es pasar información de control entre nodos que se encargan de:</p>
+      <ul class="clean">
+        <li><b>Control de tráfico</b>: armar, mantener y liberar llamadas.</li>
+        <li><b>Comunicación con bases de datos</b>: redes inteligentes.</li>
+        <li><b>Gestión de red</b>: vigilar y proteger la red.</li>
+      </ul>
+    </div>
+    <div class="panel hot">
+      <h3><span class="ic">◆</span>El problema de señalizar por la voz</h3>
+      <p>Antes la señalización iba por los mismos circuitos de la voz. Si la llamada daba ocupado, el circuito quedaba tomado solo para devolver ese tono. En una llamada larga, cientos de líneas se mantenían ocupadas por nada.</p>
+      <p>Si el abonado volvía a intentar, se ocupaban más circuitos por más tiempo. Multiplicado por millones de llamadas por hora, era un gran desperdicio. La única salida era construir más infraestructura.</p>
+      <p>Por eso se decidió <b>separar la señalización de la voz</b>. Esa es la base de SS7.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">3. Evolución de los sistemas de señalización</h3>
+  <p class="lead" style="margin-bottom:16px">El CCITT, hoy ITU-T, fue creando sistemas numerados. Cada uno usaba frecuencias distintas.</p>
+  <div class="tablewrap"><table class="spec">
+    <tr><th>Sistema</th><th>Año</th><th>Qué usaba</th><th>Para qué servía</th></tr>
+    <tr><td class="k">SSN°1</td><td>1934</td><td>Una frecuencia de 500 o 1000 Hz, interrumpida a 20 Hz</td><td>Servicios manuales bidireccionales</td></tr>
+    <tr><td class="k">SSN°2</td><td>1938</td><td>Dos frecuencias, 600 y 750 Hz</td><td>Servicios semiautomáticos</td></tr>
+    <tr><td class="k">SSN°3</td><td>1954</td><td>Una frecuencia, 2280 Hz</td><td>Servicio semiautomático, para línea y registro</td></tr>
+    <tr><td class="k">SSN°4</td><td>1954</td><td>2040 y 2400 Hz</td><td>El más usado en tráfico internacional de Europa, en redes analógicas</td></tr>
+    <tr><td class="k">SSN°5</td><td>1964</td><td>Línea: 2400 y 2600 Hz. Registro: seis frecuencias, código "2 entre 6"</td><td>Conexiones internacionales por cable y satélite. El SS7 lo reemplazó del todo hacia 1996</td></tr>
+    <tr><td class="k">SSR1 / SSR2</td><td>—</td><td>Multifrecuencia. SSR1 por código de impulsos. SSR2 por secuencia obligada, fuera de banda (3825 Hz Europa, 3700 Hz USA)</td><td>SSR2 con onda portadora (FDM), donde no conviene señalizar dentro del canal de voz</td></tr>
+    <tr><td class="k">SS6</td><td>años 60</td><td>Sistema N°6 de Señalización Intercentrales por Canal Común</td><td>Hubo 5 versiones anteriores, pero solo SS6 sobrevivió y fue aceptado en el mercado</td></tr>
+    <tr><td class="k">SS7</td><td>Actual</td><td>Canal común, con mensajes en paquetes (unidades de señalización)</td><td>El estándar actual de ITU-T. Hay más de 30 variantes nacionales, como ITU y ANSI</td></tr>
+  </table></div>
+  <div class="note">Los primeros sistemas usaban tonos dentro de la banda de voz. La señal del SSR2 viajaba por la misma vía pero en otra banda. Con SS6 y SS7 se pasó a mensajes digitales por un canal aparte.</div>
+
+  <h3 class="sub">4. Tipos de redes que usan señalización</h3>
+  <div class="grid2">
+    <div class="panel">
+      <h3><span class="ic">◆</span>Conmutación de circuitos</h3>
+      <ul class="clean">
+        <li><b>PSTN</b>: red telefónica pública conmutada.</li>
+        <li><b>CSPDN</b>: red pública de datos conmutada por circuitos.</li>
+        <li><b>ISDN (RDSI)</b>: red digital de servicios integrados.</li>
+        <li><b>PLMN</b>: red pública móvil.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3><span class="ic">◆</span>Conmutación de paquetes</h3>
+      <ul class="clean">
+        <li><b>Paquetes de longitud variable</b>: PSPDN y Frame Relay, que se usa para unir LAN.</li>
+        <li><b>Paquetes de longitud fija (celdas)</b>: ATM y DQDB.</li>
+      </ul>
+    </div>
+  </div>
+  <p style="color:var(--dim);margin-top:14px">Mi red es de conmutación de circuitos, una PSTN. Pero el SS7 en sí funciona como una red de paquetes: sus mensajes van empaquetados en unidades de señalización.</p>
+
+  <h3 class="sub">5. Señalización de acceso y señalización de troncal</h3>
+  <div class="grid2">
+    <div class="panel">
+      <h3><span class="ic">◆</span>De acceso: abonado ↔ central</h3>
+      <p>Es la que hay entre el teléfono y su central local. Lleva:</p>
+      <ul class="clean">
+        <li>Cuelgue y descuelgue.</li>
+        <li>Dígitos marcados.</li>
+        <li>Tonos: de marcación, de ocupado, de llamada.</li>
+        <li>Anuncios grabados y señal de timbre.</li>
+      </ul>
+      <p>En una línea analógica son señales en la propia línea. En una línea digital (RDSI) va por el canal D.</p>
+    </div>
+    <div class="panel">
+      <h3><span class="ic">◆</span>De troncal: central ↔ central</h3>
+      <p>Es la que hay entre centrales. Puede ser de dos formas:</p>
+      <ul class="clean">
+        <li><b>CAS</b>, por canal asociado: la señal viaja por el mismo canal de la voz.</li>
+        <li><b>CCS</b>, por canal común: los mensajes viajan por un canal separado y compartido por muchas troncales. SS7 es de este tipo.</li>
+      </ul>
+      <p>Esto lo comparo en detalle en la sección de señalización SS7.</p>
+    </div>
+  </div>
+  <div class="panel" style="margin-top:18px">
+    <h3><span class="ic">◆</span>En CAS hay dos clases de señal</h3>
+    <div class="grid2" style="gap:18px">
+      <div>
+        <p><b>Señales de línea.</b> Dicen el estado del circuito, durante toda la llamada:</p>
+        <ul class="clean"><li>Línea disponible.</li><li>Toma de la línea y su reconocimiento.</li><li>B responde.</li><li>Cuelga A o cuelga B.</li><li>Guarda de desconexión y desconexión forzada.</li><li>Bloqueo de línea.</li><li>Pulsos de tarificación.</li></ul>
+      </div>
+      <div>
+        <p><b>Señales de registro.</b> Se mandan al inicio, para encaminar la llamada:</p>
+        <ul class="clean"><li>Número de B.</li><li>Categoría del abonado A.</li><li>Estado de B.</li><li>Número de A, en algunos casos.</li></ul>
+        <p>Como en CAS se mandan con tonos, hacen falta equipos de señalización dedicados en cada central.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="sub">6. Cómo se organiza la red de señalización</h3>
+  <div class="grid3">
+    <div class="panel">
+      <h3><span class="ic">◆</span>Dos componentes básicos</h3>
+      <p>El <b>punto de señalización (SP)</b> y el <b>enlace de señalización (SL)</b>. Una central digital con SS7 es un SP.</p>
+      <p>Cada SP tiene un código único, el <b>SPC</b>. En mi diseño van del 2-15 al 2-200. El SL es un intervalo de tiempo de la trama PCM, el IT16, uno en cada sentido.</p>
+    </div>
+    <div class="panel">
+      <h3><span class="ic">◆</span>Terminal y set de enlaces</h3>
+      <p>Cada extremo del enlace tiene un <b>terminal de señalización (ST)</b>. Para dar confiabilidad y capacidad se usan varios enlaces en paralelo entre dos SP vecinos. Eso se llama <b>set de enlaces (LS)</b>, de hasta 16 enlaces.</p>
+      <p>Dos SP unidos por un enlace son <b>adyacentes</b>.</p>
+    </div>
+    <div class="panel">
+      <h3><span class="ic">◆</span>Dos niveles de red</h3>
+      <p>A escala mundial hay un nivel <b>nacional</b> y uno <b>internacional</b>. Son independientes. Así cada uno tiene su plan de numeración y la responsabilidad de gestión queda clara.</p>
+      <p>Los STP también se clasifican: internacionales, nacionales, regionales y locales.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">7. Nodos de la red inteligente y la red móvil</h3>
+  <div class="grid2">
+    <div class="panel">
+      <h3><span class="ic">◆</span>Los nodos del material</h3>
+      <ul class="clean">
+        <li><b>SSP</b>: la central que origina, termina o enruta la llamada.</li>
+        <li><b>STP</b>: transfiere mensajes. Siempre en par.</li>
+        <li><b>SCP</b>: base de datos de servicios. Los servicios solo se limitan por la imaginación y los datos disponibles.</li>
+        <li><b>CRP</b>: base de datos que actualiza la propia empresa dueña. Así los cambios son más rápidos.</li>
+        <li><b>IP</b>: periférico inteligente. Detecta comandos de voz o tonos de teclado. Se ubica en pocos lugares porque el equipo es caro.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3><span class="ic">◆</span>Telefonía móvil y red inteligente</h3>
+      <p>La red "inalámbrica" lo es solo en una parte pequeña. El resto usa SS7. Sus partes son:</p>
+      <ul class="clean">
+        <li><b>MSC</b>: la central de conmutación móvil. Debe saber dónde está el abonado.</li>
+        <li><b>HLR</b>: base de datos de los abonados propios. Sirve para validarlos y cobrar.</li>
+        <li><b>VLR</b>: base de datos de los visitantes o "roamers".</li>
+      </ul>
+      <p>La <b>red inteligente avanzada (AIN)</b> busca la mejor forma de poner nuevos servicios en SS7. Usa un <b>SMS</b>, un sistema de gestión de servicios con interfaz gráfica, para que el servicio se arme a la medida. Hubo dos versiones, AIN 0.1 y 0.2.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">8. Por qué importa SS7</h3>
+  <div class="panel good">
+    <p>SS7 es el sistema de canal común más usado en telecomunicaciones públicas. Soporta señalización de abonados analógicos y digitales (RDSI). Se aplica a redes nacionales e internacionales y a redes de servicios especiales.</p>
+    <p>El material lo resume así: sin la PSTN no habría Internet ni telefonía móvil, y tampoco SS7. Además, el tráfico de señalización va a crecer. Por los nuevos servicios que piden los usuarios y por los mecanismos para usar mejor los recursos de la red.</p>
+  </div>
+
+  <h3 class="sub">9. Qué transporta mi red</h3>
+  <p class="lead" style="margin-bottom:20px">Ahora lo anterior aplicado a mi diseño. La red transporta dos cosas distintas. Por las troncales viaja la voz. Por los enlaces SS7 viaja la información de control.</p>
+  <div class="grid3">
+    <div class="panel">
+      <h3><span class="ic">◆</span>La voz</h3>
+      <p>Cada canal de voz es de 64 kbps y está reservado mientras dura la llamada. Es el modelo de la conmutación de circuitos.</p>
+      <p>Tiene ventajas. La información llega en orden y el retardo en cada nodo es muy pequeño. Pero hay desperdicio. En una conversación la línea queda desocupada cerca del 50% del tiempo.</p>
+    </div>
+    <div class="panel">
+      <h3><span class="ic">◆</span>La señalización</h3>
+      <p>Es lo que se dicen las centrales entre sí. Sirve para:</p>
+      <ul class="clean">
+        <li>Mandar el número marcado.</li>
+        <li>Avisar que la llamada no se completó.</li>
+        <li>Generar el timbre y los tonos.</li>
+        <li>Marcar el fin de la llamada y liberar la ruta.</li>
+        <li>Pasar datos de facturación.</li>
+        <li>Informar el estado de equipos y troncales.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3><span class="ic">◆</span>Los servicios</h3>
+      <p>Con la señalización por canal común, la red ofrece más que llamadas simples:</p>
+      <ul class="clean">
+        <li>Llamadas gratuitas (800/888) y de cobro (900).</li>
+        <li>Portabilidad del número.</li>
+        <li>Reenvío, conferencia y número del que llama.</li>
+        <li>Roaming y autenticación de móviles.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub">Dos clases de señalización</h3>
+  <div class="grid2">
+    <div class="panel hot">
+      <h3><span class="ic">◆</span>Relativa a circuito</h3>
+      <p>Es la que hace falta para armar una llamada. Lleva el número del abonado B, la ocupación de la línea, el cuelgue y el descuelgue, y los tonos de ocupado o de marcación.</p>
+      <p>Usa el MTP y una parte de usuario (TUP o ISUP).</p>
+    </div>
+    <div class="panel good">
+      <h3><span class="ic">◆</span>No relativa a circuito</h3>
+      <p>Sirve para otros servicios que necesitan consultar bases de datos. Por ejemplo, el número 800. En mi diseño es la que va hacia el SCP.</p>
+      <p>Usa MTP más SCCP. A esa combinación se le llama <b>NSP</b>, Parte de Servicio de Red.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ARQUITECTURA ===================== -->
+<section id="arquitectura">
+  <div class="sec-tag"><span class="num">05</span> Arquitectura</div>
+  <h2 class="sec-title">Cómo está armada la red SS7</h2>
+  <p class="lead">SS7 es un estándar de la ITU. Define cómo las centrales de la red telefónica intercambian señales digitales para armar, enrutar y controlar llamadas, de red fija y móvil. Tiene un diseño por planos y por nodos.</p>
+
+  <div class="grid2">
+    <div class="panel">
+      <h3><span class="ic">◆</span>Dos planos</h3>
+      <p><b>Plano de control:</b> lo forman los puntos de señalización (SP) y los STP. Establece y gestiona las conexiones.</p>
+      <p><b>Plano de información:</b> lo forman las centrales locales, las de tránsito y los usuarios. Una vez armada la conexión, la información viaja por aquí.</p>
+      <p>En mi diseño: el plano de control son los STP, el SCP y los enlaces naranjos. El plano de información son las troncales celestes.</p>
+    </div>
+    <div class="panel amber">
+      <h3><span class="ic">◆</span>Modo de señalización que elegí</h3>
+      <p>Hay tres modos: asociado, cuasi asociado y disociado. En el asociado, el enlace de señalización va pegado a la troncal de voz.</p>
+      <p>Yo usé el <b>cuasi asociado</b>. Los mensajes pasan por STP y no por un enlace directo entre cada par de centrales. Así no necesito unir todas las centrales entre sí. Por eso el material dice que las centrales no necesitan estar todas interconectadas.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Los nodos</h3>
+  <div class="grid3">
+    <div class="panel"><h3><span class="ic">◆</span>SSP <span class="tag">Service Switching Point</span></h3><p>La central que origina, termina o enruta llamadas. En mi diseño son las tres centrales locales y las dos de tránsito. Convierte la señal del abonado en mensajes SS7.</p></div>
+    <div class="panel"><h3><span class="ic">◆</span>STP <span class="tag amber">Signal Transfer Point</span></h3><p>Enruta mensajes de señalización. No toca la voz. Siempre va en par. Puede ser integrado a una central o "stand alone". Yo usé dos STP stand alone, porque tienen toda su capacidad para mover mensajes.</p></div>
+    <div class="panel"><h3><span class="ic">◆</span>SCP <span class="tag good">Service Control Point</span></h3><p>Base de datos de servicios. Responde las consultas del SSP, por ejemplo el número real detrás de un 800. Se llega a él por el STP.</p></div>
+  </div>
+  <p style="color:var(--dim);font-size:14px;margin:12px 0 0">El material nombra también el CRP (Customer Routing Point) y el IP (Intelligent Peripheral). No los necesité en este tamaño de red.</p>
+
+  <h3 class="sub">Los enlaces entre nodos</h3>
+  <div class="tablewrap">
+    <table class="spec">
+      <tr><th>Enlace</th><th>Une</th><th>¿Lo uso?</th></tr>
+      <tr><td class="k">A (Access)</td><td>SSP o SCP con su STP</td><td><span class="tag good">Sí</span>Todas las centrales y el SCP con los dos STP</td></tr>
+      <tr><td class="k">B (Bridge)</td><td>STP de un mismo nivel jerárquico</td><td><span class="tag">No</span>Aparecería con más pares de STP</td></tr>
+      <tr><td class="k">C (Cross)</td><td>Los dos STP de un mismo par</td><td><span class="tag good">Sí</span>STP-1 con STP-2</td></tr>
+      <tr><td class="k">D (Diagonal)</td><td>STP de niveles distintos</td><td><span class="tag">No</span>Solo hay un nivel de STP</td></tr>
+      <tr><td class="k">E (Extended)</td><td>SSP con un STP alternativo, de respaldo</td><td><span class="tag">No</span>Ya hay dos STP por central</td></tr>
+      <tr><td class="k">F (Fully associated)</td><td>SSP con SSP, directo</td><td><span class="tag">No</span>No hace falta en una red tan chica</td></tr>
+    </table>
+  </div>
+
+  <h3 class="sub">Redundancia y reglas de carga</h3>
+  <div class="grid3">
+    <div class="panel good"><h3><span class="ic">◆</span>Los STP, en par</h3><p>Los dos STP reparten el tráfico. Si uno falla, el otro lo toma todo. Por eso cada STP trabaja normalmente como máximo al <b>40%</b>. Con la falla del otro llega al <b>80%</b>.</p></div>
+    <div class="panel good"><h3><span class="ic">◆</span>Los enlaces</h3><p>Entre dos puntos se pueden juntar hasta 16 enlaces en un juego (LS). Cada enlace trabaja normalmente al <b>30%</b>. Si cae su pareja, sube al <b>60%</b>.</p></div>
+    <div class="panel good"><h3><span class="ic">◆</span>Rutas alternas</h3><p>Una falla de enlace tiene consecuencias serias, porque la señalización está muy concentrada. Por eso la red tiene rutas de señalización alternas.</p></div>
+  </div>
+  <div class="note">Hierarquía de STP en redes grandes: internacional, nacional, regional y local. Mi ciudad usa un solo nivel, el regional.</div>
+</section>
+
+<!-- ===================== SEÑALIZACIÓN ===================== -->
+<section id="senalizacion">
+  <div class="sec-tag"><span class="num">06</span> Señalización SS7</div>
+  <h2 class="sec-title">Cómo habla SS7</h2>
+  <p class="lead">Primero, por qué se usa un canal común. Después, las capas de protocolo y, al final, cómo se ve un mensaje por dentro.</p>
+
+  <h3 class="sub" style="margin-top:6px">Por qué canal común</h3>
+  <div class="tablewrap">
+    <table class="spec">
+      <tr><th>Tema</th><th>Señalización en canal (CAS)</th><th>Señalización por canal común (SS7)</th></tr>
+      <tr><td class="k">Por dónde va</td><td>Por el mismo canal de la voz</td><td>Por un camino aparte de la voz</td></tr>
+      <tr><td class="k">Velocidad</td><td>Limitada. Hay retardo entre marcar y conectar</td><td>Rápida. Una llamada se arma en menos de un segundo</td></tr>
+      <tr><td class="k">Uso del canal</td><td>Un canal de señalización por cada canal de voz</td><td>Un canal de señalización sirve a muchos canales de voz</td></tr>
+      <tr><td class="k">Si falla la voz</td><td>No se puede armar la llamada (en banda)</td><td>La señalización sigue por su propio camino</td></tr>
+      <tr><td class="k">Servicios</td><td>Pocos</td><td>800, portabilidad, roaming, identificador de llamada</td></tr>
+    </table>
+  </div>
+  <div class="note">SS7 funciona sobre enlaces de 64 kbps, terrestres y satelitales. También puede correr sobre canales analógicos. La ITU recomienda 4,8 kbit/s o más en ese caso.</div>
+
+  <h3 class="sub">Las capas de SS7</h3>
+  <p style="color:var(--dim);font-size:15px;margin:0 0 12px">Haz clic en una capa. A la izquierda se ve con qué capa OSI se parece.</p>
+  <div class="grid2 wide-left">
+    <div class="stack" id="stack"></div>
+    <div class="panel" id="layerInfo"></div>
+  </div>
+
+  <h3 class="sub">Las unidades de señalización</h3>
+  <p style="color:var(--dim);font-size:15px;margin:0 0 6px">Todo lo que viaja por un enlace SS7 es una "unidad de señalización" (SU). Hay tres tipos. Siempre miden un múltiplo de 8 bits. Haz clic en cada campo.</p>
+  <div class="rowlabel">MSU · Unidad de mensaje</div>
+  <div class="chips" id="chipsMSU"></div>
+  <div class="rowlabel">LSSU · Estado del enlace</div>
+  <div class="chips" id="chipsLSSU"></div>
+  <div class="rowlabel">FISU · Relleno</div>
+  <div class="chips" id="chipsFISU"></div>
+  <div class="panel" id="fieldInfo" style="margin-top:10px"></div>
+  <div class="note">En el dibujo, el orden se lee de derecha a izquierda. Primero sale la bandera, luego los campos BSN, BIB, FSN y FIB. El campo LI (indicador de longitud) dice qué unidad es: <b>0 = FISU</b>, <b>1 o 2 = LSSU</b>, <b>más de 2 = MSU</b>.</div>
+
+  <h3 class="sub">Probar el "bit stuffing"</h3>
+  <div class="grid2">
+    <div class="panel">
+      <p>La bandera que marca el inicio y el fin de una unidad es <span class="mono" style="color:var(--amber)">01111110</span>. ¿Y si los datos traen esa misma secuencia? Para evitarlo, el transmisor pone un 0 después de cada cinco unos seguidos. El receptor lo quita.</p>
+      <p>Escribe unos y ceros:</p>
+      <div class="fld" style="grid-template-columns:1fr"><input id="bitsIn" value="01111110" maxlength="48" autocomplete="off" spellcheck="false"></div>
+    </div>
+    <div class="panel good">
+      <h3><span class="ic">◆</span>Resultado</h3>
+      <p>En el enlace sale así (el 0 agregado va en color):</p>
+      <p class="mono" id="bitsOut" style="font-size:20px;letter-spacing:.06em;color:var(--white);word-break:break-all"></p>
+      <p id="bitsMsg" style="font-size:13.5px"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DIMENSIONADO ===================== -->
+<section id="dimensionado">
+  <div class="sec-tag"><span class="num">07</span> Dimensionado</div>
+  <h2 class="sec-title">¿Aguanta la red que diseñé?</h2>
+  <p class="lead">Dimensionar es calcular cuántos enlaces y cuánta capacidad hacen falta. Dejé los datos de mi diseño en la calculadora. Puedes cambiarlos y ver qué pasa.</p>
+
+  <div class="calc">
+    <div class="panel">
+      <h3><span class="ic">◆</span>Datos de entrada</h3>
+      <div class="fld"><span>Abonados por central local</span><input id="c_subs" type="number" value="100000" min="1000" step="1000"></div>
+      <div class="fld"><span>% de abonados RDSI</span><input id="c_pr" type="number" value="20" min="0" max="100"></div>
+      <div class="fld"><span>Erl por abonado POTS</span><input id="c_eP" type="number" value="0.05" step="0.01" min="0.01"></div>
+      <div class="fld"><span>Erl por abonado RDSI</span><input id="c_eR" type="number" value="0.10" step="0.01" min="0.01"></div>
+      <div class="fld"><span>Duración media (s)</span><input id="c_mht" type="number" value="100" min="10"></div>
+      <div class="fld"><span>Mensajes por llamada, por sentido</span><input id="c_msg" type="number" value="3" min="1"></div>
+      <div class="fld"><span>Largo de MSU en POTS (octetos)</span><input id="c_lP" type="number" value="15" min="5"></div>
+      <div class="fld"><span>Largo de MSU en RDSI (octetos)</span><input id="c_lR" type="number" value="30" min="5"></div>
+      <div class="fld"><span>Centrales locales</span><input id="c_nC" type="number" value="3" min="1" max="200"></div>
+      <div class="fld"><span>Veces que un mensaje pasa por un STP</span><input id="c_pass" type="number" value="2" min="1" max="4"></div>
+      <div class="fld"><span>% del tráfico que sale de la central</span><input id="c_ext" type="number" value="30" min="1" max="100"></div>
+      <div class="fld"><span>Bloqueo permitido en troncales</span>
+        <select id="c_gos"><option value="0.005">0,5%</option><option value="0.01" selected>1%</option><option value="0.02">2%</option><option value="0.05">5%</option></select></div>
+    </div>
+    <div>
+      <div class="panel good">
+        <h3><span class="ic">◆</span>Tráfico de una central local</h3>
+        <div class="res"><span>Tráfico total (Erlang)</span><b class="v" id="r_erl"></b></div>
+        <div class="res"><span>Llamadas por segundo (hora pico)</span><b class="v" id="r_calls"></b></div>
+        <div class="res"><span>Mensajes (MSU) por segundo, por sentido</span><b class="v" id="r_msu"></b></div>
+        <div class="res"><span>Largo medio de MSU (octetos)</span><b class="v" id="r_len"></b></div>
+        <div class="res"><span>Bits por segundo, por sentido</span><b class="v" id="r_bps"></b></div>
+      </div>
+      <div class="panel" style="margin-top:16px">
+        <h3><span class="ic">◆</span>Enlaces de señalización (2 por central)</h3>
+        <div class="res"><span>Carga de cada enlace, normal <small>(límite 30%)</small></span><span><b class="v" id="r_ln"></b><span id="b_ln"></span></span></div>
+        <div class="res"><span>Carga si cae un enlace <small>(límite 60%)</small></span><span><b class="v" id="r_lf"></b><span id="b_lf"></span></span></div>
+      </div>
+      <div class="panel" style="margin-top:16px">
+        <h3><span class="ic">◆</span>Par de STP</h3>
+        <div class="res"><span>Mensajes por segundo en todo el par</span><b class="v" id="r_stp"></b></div>
+        <div class="res"><span>Carga de cada STP, normal <small>(límite 40%)</small></span><span><b class="v" id="r_sn"></b><span id="b_sn"></span></span></div>
+        <div class="res"><span>Carga si cae un STP <small>(límite 80%)</small></span><span><b class="v" id="r_sf"></b><span id="b_sf"></span></span></div>
+        <div class="res"><span>Centrales como estas que aguanta el par</span><b class="v" id="r_max"></b></div>
+      </div>
+      <div class="panel amber" style="margin-top:16px">
+        <h3><span class="ic">◆</span>Troncales de voz (Erlang-B)</h3>
+        <div class="res"><span>Tráfico hacia otras centrales (Erl)</span><b class="v" id="r_ext"></b></div>
+        <div class="res"><span>Por cada ruta (Tránsito A o B) (Erl)</span><b class="v" id="r_route"></b></div>
+        <div class="res"><span>Circuitos por ruta</span><b class="v" id="r_circ"></b></div>
+        <div class="res"><span>E1 por ruta (30 canales cada uno)</span><b class="v" id="r_e1"></b></div>
+      </div>
+    </div>
+  </div>
+  <div class="note">Fórmulas usadas, las del material de la profesora: <b>A = y · s</b> (Erlang), donde A es el tráfico, y las llamadas por segundo y s la duración. La carga de un enlace es bits por segundo divididos por 64.000. Para las troncales usé la fórmula Erlang-B. Los mensajes por llamada, los largos de MSU y la capacidad del STP son los valores de ejemplo del material.</div>
+</section>
+
+<!-- ===================== CIERRE ===================== -->
+<section id="cierre" style="border-bottom:none">
+  <div class="sec-tag"><span class="num">08</span> Del aula al terreno</div>
+  <h2 class="sec-title">Lo que veo de esto en mi trabajo</h2>
+  <p class="lead">Soy técnico de redes principales en VTR. No trabajo sobre una red SS7 de telefonía fija. Pero la idea de separar el control de la voz, y de duplicar lo importante, la veo todos los días.</p>
+  <div class="vcards">
+    <div class="vcard"><h4>La telefonía de VTR va por IP</h4><p>Las llamadas de los clientes viajan como paquetes de voz y se señalizan con SIP. Es el reemplazo moderno de lo que hace SS7 en la red fija.</p></div>
+    <div class="vcard"><h4>El nodo es mi central local</h4><p>El CMTS o la OLT concentran el tráfico de cientos de clientes. Hacen el papel de la central local de mi diseño.</p></div>
+    <div class="vcard"><h4>Los pares son la regla</h4><p>Como los STP, los equipos críticos de una red van en par. Si uno cae, el otro toma la carga. Se diseña para que una falla no corte a nadie.</p></div>
+    <div class="vcard"><h4>Se dimensiona con margen</h4><p>El 30% y el 40% de carga normal dejan espacio para las fallas. En terreno pasa lo mismo. Si una red trabaja siempre al límite, cualquier falla la deja sin servicio.</p></div>
+  </div>
+
+  <h3 class="sub">Conclusión</h3>
+  <div class="panel hot" style="max-width:920px">
+    <p style="font-size:16.5px">Diseñar esta red me mostró que una llamada son dos cosas a la vez. Una es la voz, que viaja por las troncales. La otra es la señalización, que viaja por SS7 y decide todo lo demás. En mi diseño, las tres centrales locales, las dos de tránsito, los dos STP y el SCP trabajan juntos y cada pieza clave tiene su respaldo.</p>
+    <p style="font-size:16.5px">Los cálculos dan buen resultado. Cada enlace trabaja al 22,5% de carga y cada STP a menos del 4%. Hay mucho margen para crecer. El par de STP aguantaría unas 33 centrales como estas.</p>
+  </div>
+
+  <h3 class="sub">Fuentes</h3>
+  <ol class="src">
+    <li>Material de la profesora, Unidad III: "Arquitectura SS7" (historia de la telefonía, señalización de acceso y de troncal, CAS y CCS, nodos, enlaces, modelo de referencia, MTP, unidades de señalización, planeamiento y dimensionamiento de la red SS7).</li>
+    <li>Material de la profesora, Unidad III: "Sistema de Señalización de Canal Común SS7". Basado en Stallings, W., <i>Comunicaciones y Redes de Computadores</i>, cap. 10: Conmutación de circuitos y paquetes.</li>
+    <li>Recomendaciones de la ITU citadas en el material: Q.702, G.703 y G.704.</li>
+  </ol>
+</section>
+
+
+<section class="partband" id="unidad4">
+  <div class="sec-tag"><span class="num">IV</span> Unidad IV</div>
+  <div class="big">Diseño de una <span class="g">RDSI</span> y comparación con SS7</div>
+  <p>Aquí complemento la red de la Unidad III. Diseño una RDSI para una empresa y la conecto a la central local 1 de la red de arriba. Explico sus conexiones, su funcionamiento, su contenido y su arquitectura. Luego la comparo con SS7 y explico mi diseño en detalle.</p>
+  <a class="linkback" href="#diseno">↑ Ver la red de la Unidad III</a>
+  <a class="linkback" href="#iv_diseno">↓ Ir al diseño de la RDSI</a>
+</section>
+
+<!-- ===================== DISEÑO ===================== -->
+<section id="iv_diseno">
+  <div class="sec-tag"><span class="num">01</span> El diseño</div>
+  <h2 class="sec-title">La RDSI que diseñé</h2>
+  <p class="lead">Diseñé el acceso RDSI de una empresa. Tiene una sede central con una central privada (PBX) digital y dos oficinas. La sede se une a la central pública con un acceso primario (PRI). Cada oficina se une con accesos básicos (BRI). Esa central pública es la central local 1 de la red que diseñé en la Unidad III. Así las dos unidades forman una sola red, la que está más arriba en esta misma página.</p>
+
+  <div class="btnrow">
+    <button class="btn on" id="iv_bAcc">Acceso RDSI (DSS1)</button>
+    <button class="btn on" id="iv_bCore">Red SS7 (Unidad III)</button>
+    <button class="btn" id="iv_bCall">▶ Mostrar una llamada</button>
+    <button class="btn warn" id="iv_bFail">Simular falla del PRI</button>
+  </div>
+
+  <div class="netbox">
+    <svg class="net" id="iv_netsvg" viewBox="0 0 1000 540" role="img" aria-label="Diagrama de la RDSI diseñada y su conexión con la red SS7"></svg>
+    <div class="legend">
+      <span><span class="sw g"></span>Acceso RDSI: canales B + canal D (Q.931)</span>
+      <span><span class="sw"></span>Troncales de voz (E1)</span>
+      <span><span class="sw s"></span>Señalización SS7 (ISUP)</span>
+      <span>Haz clic en un nodo para ver sus datos</span>
+    </div>
+  </div>
+  <div class="status" id="iv_netStatus">Haz clic en un nodo, o usa los botones de arriba.</div>
+
+  <div class="grid2 wide-left" style="margin-top:14px">
+    <div class="panel infopanel" id="iv_infoPanel">
       <h3><span class="ic">◆</span>Datos del nodo</h3>
       <p>Selecciona un nodo del diagrama. Aquí vas a ver qué hace, con qué se conecta y qué canales usa.</p>
     </div>
@@ -343,11 +916,11 @@ ol.src li{margin-bottom:8px}
     </div>
   </div>
 
-  <a class="linkback" href="https://daiverw.github.io/red-daiver/" target="_blank" rel="noopener">↗ Ver la red de la Unidad III</a>
+  <a class="linkback" href="#diseno">↑ Ver la red de la Unidad III (más arriba en esta página)</a>
 </section>
 
 <!-- ===================== CONEXIONES ===================== -->
-<section id="conexiones">
+<section id="iv_conexiones">
   <div class="sec-tag"><span class="num">02</span> Conexiones</div>
   <h2 class="sec-title">Cómo se conecta cada parte</h2>
   <p class="lead">La RDSI define con mucha precisión cada tramo del acceso. Cada equipo tiene un nombre y entre ellos hay puntos de referencia: R, S, T y U. Así se sabe dónde termina el equipo del cliente y dónde empieza la red del operador.</p>
@@ -375,7 +948,7 @@ ol.src li{margin-bottom:8px}
 
   <h3 class="sub">Los puntos de referencia</h3>
   <div class="netbox" style="padding:16px 10px">
-    <svg class="net" id="refsvg" viewBox="0 0 1000 250" role="img" aria-label="Puntos de referencia R, S, T y U"></svg>
+    <svg class="net" id="iv_refsvg" viewBox="0 0 1000 250" role="img" aria-label="Puntos de referencia R, S, T y U"></svg>
   </div>
   <div class="tablewrap" style="margin-top:14px"><table class="spec">
     <tr><th>Punto</th><th>Dónde está</th><th>En mi diseño</th></tr>
@@ -398,7 +971,7 @@ ol.src li{margin-bottom:8px}
 
   <h3 class="sub">Dentro del PRI: la trama E1</h3>
   <p style="color:var(--dim);max-width:860px">El PRI europeo va sobre un E1 de 32 intervalos de 64 kbps. El intervalo 0 sincroniza y el intervalo 16 es el canal D. Los otros 30 son los canales B. Es la misma trama E1 de la Unidad III, pero con un uso distinto del intervalo 16. Allá llevaba un enlace SS7. Aquí lleva la señalización Q.931 de un cliente.</p>
-  <div class="e1" id="e1pri"></div>
+  <div class="e1" id="iv_e1pri"></div>
   <div class="legend" style="margin-top:2px">
     <span><span class="sw" style="border-color:var(--cyan)"></span>Canal B (voz o datos)</span>
     <span><span class="sw s"></span>Canal D (señalización)</span>
@@ -407,20 +980,20 @@ ol.src li{margin-bottom:8px}
 </section>
 
 <!-- ===================== FUNCIONAMIENTO ===================== -->
-<section id="funcionamiento">
+<section id="iv_funcionamiento">
   <div class="sec-tag"><span class="num">03</span> Funcionamiento</div>
   <h2 class="sec-title">Una llamada, paso a paso</h2>
   <p class="lead">Sigo una llamada dentro de mi diseño. Una extensión de la sede llama a un abonado de teléfono normal de la central local 3. La llamada nace con señalización Q.931 en el canal D. En la central local 1 se convierte en ISUP de SS7. Usa los botones para avanzar.</p>
 
   <div class="btnrow">
-    <button class="btn" id="sPrev">◀ Anterior</button>
-    <button class="btn on" id="sNext">Siguiente ▶</button>
-    <button class="btn" id="sPlay">▶ Reproducir</button>
-    <button class="btn" id="sReset">Reiniciar</button>
+    <button class="btn" id="iv_sPrev">◀ Anterior</button>
+    <button class="btn on" id="iv_sNext">Siguiente ▶</button>
+    <button class="btn" id="iv_sPlay">▶ Reproducir</button>
+    <button class="btn" id="iv_sReset">Reiniciar</button>
   </div>
 
   <div class="grid2 wide-left">
-    <div class="seqwrap"><svg class="seq" id="seqsvg" viewBox="0 0 760 700" role="img" aria-label="Diagrama de secuencia de una llamada RDSI hacia un abonado analógico"></svg>
+    <div class="seqwrap"><svg class="seq" id="iv_seqsvg" viewBox="0 0 760 640" role="img" aria-label="Diagrama de secuencia de una llamada RDSI hacia un abonado analógico"></svg>
       <div class="legend" style="margin-top:6px">
         <span><span class="sw g"></span>Q.931 en el canal D</span>
         <span><span class="sw s"></span>ISUP en SS7</span>
@@ -428,12 +1001,12 @@ ol.src li{margin-bottom:8px}
       </div>
     </div>
     <div>
-      <div class="panel stepbox" id="stepBox"></div>
+      <div class="panel stepbox" id="iv_stepBox"></div>
       <div class="panel" style="margin-top:16px">
         <h3><span class="ic">◆</span>Tres etapas de la llamada</h3>
-        <p><b style="color:var(--white)">1. Establecer.</b> Pasos 1 a 4. Trabaja la señalización de acceso y la de troncal.</p>
-        <p><b style="color:var(--white)">2. Hablar.</b> Paso 5. La voz va por el canal B y por las troncales E1. Los canales D y SS7 no la tocan.</p>
-        <p><b style="color:var(--white)">3. Liberar.</b> Pasos 6 a 8. Se cierra el circuito y se libera el canal B.</p>
+        <p><b style="color:var(--white)">1. Establecer.</b> Pasos 1 a 6. Trabaja la señalización de acceso y la de troncal.</p>
+        <p><b style="color:var(--white)">2. Hablar.</b> Paso 7. La voz va por el canal B y por las troncales E1. Los canales D y SS7 no la tocan.</p>
+        <p><b style="color:var(--white)">3. Liberar.</b> Pasos 8 y 9. Se cierra el circuito y se libera el canal B.</p>
       </div>
     </div>
   </div>
@@ -449,7 +1022,7 @@ ol.src li{margin-bottom:8px}
 </section>
 
 <!-- ===================== CONTENIDO ===================== -->
-<section id="contenido">
+<section id="iv_contenido">
   <div class="sec-tag"><span class="num">04</span> Contenido de la unidad</div>
   <h2 class="sec-title">Lo que hay que saber de la RDSI</h2>
   <p class="lead">Aquí desarrollo el contenido de la unidad. Primero qué es la RDSI y por qué nació. Luego sus canales, sus accesos y sus servicios. Al final, lo que transporta mi diseño.</p>
@@ -543,7 +1116,7 @@ ol.src li{margin-bottom:8px}
 </section>
 
 <!-- ===================== ARQUITECTURA ===================== -->
-<section id="arquitectura">
+<section id="iv_arquitectura">
   <div class="sec-tag"><span class="num">05</span> Arquitectura</div>
   <h2 class="sec-title">Cómo está armada la RDSI</h2>
   <p class="lead">La RDSI se describe en dos planos y en capas. Es parecida a SS7, pero sus capas cubren solo el tramo entre el cliente y su central local.</p>
@@ -557,14 +1130,14 @@ ol.src li{margin-bottom:8px}
   <h3 class="sub">La pila del canal D</h3>
   <p style="color:var(--dim);max-width:860px;margin-top:0">Toca cada capa para ver qué hace.</p>
   <div class="grid2 wide-left">
-    <div class="stack" id="stack4"></div>
-    <div class="panel" id="layerInfo4"></div>
+    <div class="stack" id="iv_stack4"></div>
+    <div class="panel" id="iv_layerInfo4"></div>
   </div>
 
   <h3 class="sub">La trama LAPD (Q.921)</h3>
   <p style="color:var(--dim);max-width:860px;margin-top:0">Los mensajes Q.931 viajan dentro de tramas LAPD. Toca un campo.</p>
-  <div class="chips" id="lapdChips"></div>
-  <div class="panel" id="lapdInfo"></div>
+  <div class="chips4" id="iv_lapdChips"></div>
+  <div class="panel" id="iv_lapdInfo"></div>
 
   <h3 class="sub">Dónde encaja la central</h3>
   <div class="panel amber">
@@ -583,7 +1156,7 @@ ol.src li{margin-bottom:8px}
 </section>
 
 <!-- ===================== COMPARACIÓN ===================== -->
-<section id="comparacion">
+<section id="iv_comparacion">
   <div class="sec-tag"><span class="num">06</span> Comparación</div>
   <h2 class="sec-title">RDSI frente a SS7</h2>
   <p class="lead">Las dos son señalización fuera de banda. Separan el control de la información. Pero no compiten. Trabajan en tramos distintos de la misma llamada.</p>
@@ -591,7 +1164,7 @@ ol.src li{margin-bottom:8px}
   <table class="vs-table">
     <tr><th>Criterio</th><th class="rdsi">RDSI (DSS1 · Q.931)</th><th class="ss7">SS7 (MTP + ISUP)</th></tr>
     <tr><td class="k">Tramo de red</td><td><b>Acceso</b>: entre el cliente y su central local.</td><td><b>Troncal</b>: entre centrales, en el núcleo de la red.</td></tr>
-    <tr><td class="k">Tipo de señalización</td><td>De acceso. Cada acceso del cliente lleva su propio canal D.</td><td>De troncal. Es por canal común: un canal sirve a muchas troncales.</td></tr>
+    <tr><td class="k">Tipo de señalización</td><td>De acceso. Es por canal asociado al acceso del cliente.</td><td>De troncal. Es por canal común: un canal sirve a muchas troncales.</td></tr>
     <tr><td class="k">A quién sirve</td><td>A un cliente, o a una PBX con muchos canales B.</td><td>A miles de llamadas de muchos abonados que comparten los mismos enlaces.</td></tr>
     <tr><td class="k">Canal de señalización</td><td>Canal D: 16 kbps en BRI y 64 kbps en PRI.</td><td>Enlace de señalización (SL) de 64 kbps, normalmente el intervalo 16 del E1.</td></tr>
     <tr><td class="k">Protocolos</td><td>Física I.430 / I.431, enlace Q.921 (LAPD), red Q.931.</td><td>MTP 1 a 3, SCCP, TCAP y partes de usuario TUP / ISUP.</td></tr>
@@ -616,11 +1189,11 @@ ol.src li{margin-bottom:8px}
       <p>No sabe si el origen era RDSI o una línea analógica. Solo recibe mensajes ISUP de la central local 1. Lo único que cambia es el largo del mensaje: 30 octetos en RDSI y 15 en POTS, como en mi diseño anterior.</p>
     </div>
   </div>
-  <a class="linkback" href="https://daiverw.github.io/red-daiver/" target="_blank" rel="noopener">↗ Ver SS7 en la página de la Unidad III</a>
+  <a class="linkback" href="#senalizacion">↑ Ver la señalización SS7 de la Unidad III</a>
 </section>
 
 <!-- ===================== EXPLICACIÓN DEL DISEÑO ===================== -->
-<section id="explicacion">
+<section id="iv_explicacion">
   <div class="sec-tag"><span class="num">07</span> Explicación del diseño</div>
   <h2 class="sec-title">Por qué lo diseñé así</h2>
   <p class="lead">Aquí explico en detalle cada decisión de mi diseño. Al final dejé una calculadora con los datos de mi diseño. Puedes cambiarlos y ver qué pasa.</p>
@@ -638,44 +1211,44 @@ ol.src li{margin-bottom:8px}
 
   <h3 class="sub">Calculadora del diseño</h3>
   <p style="color:var(--dim);max-width:860px;margin-top:0">Uso la fórmula de Erlang B para saber cuántos canales B hacen falta con un bloqueo máximo. Es el mismo método de tráfico de la unidad anterior: A = y · s, tráfico igual a llamadas por segundo por duración.</p>
-  <div class="calc">
+  <div class="calc4">
     <div class="panel">
       <h3><span class="ic">◆</span>Datos de entrada</h3>
-      <div class="fld"><label for="c_ext">Extensiones en la sede</label><input id="c_ext" type="number" value="200" min="1"></div>
-      <div class="fld"><label for="c_eH">Erl por extensión (sede)</label><input id="c_eH" type="number" value="0.12" step="0.01" min="0"></div>
-      <div class="fld"><label for="c_pH">% del tráfico que sale a la red (sede)</label><input id="c_pH" type="number" value="30" min="0" max="100"></div>
-      <div class="fld"><label for="c_usr">Usuarios por oficina</label><input id="c_usr" type="number" value="12" min="1"></div>
-      <div class="fld"><label for="c_eO">Erl por usuario (oficina)</label><input id="c_eO" type="number" value="0.10" step="0.01" min="0"></div>
-      <div class="fld"><label for="c_pO">% del tráfico que sale a la red (oficina)</label><input id="c_pO" type="number" value="50" min="0" max="100"></div>
-      <div class="fld"><label for="c_mht">Duración media de llamada (s)</label><input id="c_mht" type="number" value="120" min="1"></div>
-      <div class="fld"><label for="c_msg">Mensajes Q.931 por llamada (ambos sentidos)</label><input id="c_msg" type="number" value="8" min="1"></div>
-      <div class="fld"><label for="c_len">Largo medio de un mensaje (octetos)</label><input id="c_len" type="number" value="35" min="1"></div>
-      <div class="fld"><label for="c_gos">Bloqueo permitido</label><select id="c_gos"><option value="0.005">0,5%</option><option value="0.01" selected>1%</option><option value="0.02">2%</option><option value="0.05">5%</option></select></div>
+      <div class="fld"><label for="iv_c_ext">Extensiones en la sede</label><input id="iv_c_ext" type="number" value="200" min="1"></div>
+      <div class="fld"><label for="iv_c_eH">Erl por extensión (sede)</label><input id="iv_c_eH" type="number" value="0.12" step="0.01" min="0"></div>
+      <div class="fld"><label for="iv_c_pH">% del tráfico que sale a la red (sede)</label><input id="iv_c_pH" type="number" value="30" min="0" max="100"></div>
+      <div class="fld"><label for="iv_c_usr">Usuarios por oficina</label><input id="iv_c_usr" type="number" value="12" min="1"></div>
+      <div class="fld"><label for="iv_c_eO">Erl por usuario (oficina)</label><input id="iv_c_eO" type="number" value="0.10" step="0.01" min="0"></div>
+      <div class="fld"><label for="iv_c_pO">% del tráfico que sale a la red (oficina)</label><input id="iv_c_pO" type="number" value="50" min="0" max="100"></div>
+      <div class="fld"><label for="iv_c_mht">Duración media de llamada (s)</label><input id="iv_c_mht" type="number" value="120" min="1"></div>
+      <div class="fld"><label for="iv_c_msg">Mensajes Q.931 por llamada (ambos sentidos)</label><input id="iv_c_msg" type="number" value="8" min="1"></div>
+      <div class="fld"><label for="iv_c_len">Largo medio de un mensaje (octetos)</label><input id="iv_c_len" type="number" value="35" min="1"></div>
+      <div class="fld"><label for="iv_c_gos">Bloqueo permitido</label><select id="iv_c_gos"><option value="0.005">0,5%</option><option value="0.01" selected>1%</option><option value="0.02">2%</option><option value="0.05">5%</option></select></div>
     </div>
     <div class="panel">
       <h3><span class="ic">◆</span>Sede central: el PRI</h3>
-      <div class="res"><span>Tráfico hacia la red (Erlang)</span><b class="v" id="r_AH">—</b></div>
-      <div class="res"><span>Canales B necesarios (Erlang B)</span><b class="v" id="r_nH">—</b></div>
-      <div class="res"><span>PRI necesarios (30 canales B cada uno)</span><b class="v" id="r_pri">—</b></div>
-      <div class="res"><span>Canales B libres en el PRI</span><b class="v" id="r_free">—</b></div>
-      <div class="res"><span>Carga del canal D (64 kbps)</span><b class="v" id="r_dload">—</b><span></span></div>
-      <div class="res"><span>Resultado del PRI</span><b class="v"><span id="b_pri" class="badge ok">—</span></b></div>
+      <div class="res"><span>Tráfico hacia la red (Erlang)</span><b class="v" id="iv_r_AH">—</b></div>
+      <div class="res"><span>Canales B necesarios (Erlang B)</span><b class="v" id="iv_r_nH">—</b></div>
+      <div class="res"><span>PRI necesarios (30 canales B cada uno)</span><b class="v" id="iv_r_pri">—</b></div>
+      <div class="res"><span>Canales B libres en el PRI</span><b class="v" id="iv_r_free">—</b></div>
+      <div class="res"><span>Carga del canal D (64 kbps)</span><b class="v" id="iv_r_dload">—</b><span></span></div>
+      <div class="res"><span>Resultado del PRI</span><b class="v"><span id="iv_b_pri" class="badge ok">—</span></b></div>
       <h3 style="margin-top:18px"><span class="ic">◆</span>Cada oficina: los BRI</h3>
-      <div class="res"><span>Tráfico hacia la red (Erlang)</span><b class="v" id="r_AO">—</b></div>
-      <div class="res"><span>Bloqueo con 1 BRI (2 canales B)</span><b class="v" id="r_b1">—</b><span></span></div>
-      <div class="res"><span>Bloqueo con 2 BRI (4 canales B)</span><b class="v" id="r_b2">—</b><span></span></div>
-      <div class="res"><span>BRI necesarios por oficina</span><b class="v" id="r_bri">—</b></div>
-      <div class="res"><span>Resultado con 2 BRI</span><b class="v"><span id="b_bri" class="badge ok">—</span></b></div>
+      <div class="res"><span>Tráfico hacia la red (Erlang)</span><b class="v" id="iv_r_AO">—</b></div>
+      <div class="res"><span>Bloqueo con 1 BRI (2 canales B)</span><b class="v" id="iv_r_b1">—</b><span></span></div>
+      <div class="res"><span>Bloqueo con 2 BRI (4 canales B)</span><b class="v" id="iv_r_b2">—</b><span></span></div>
+      <div class="res"><span>BRI necesarios por oficina</span><b class="v" id="iv_r_bri">—</b></div>
+      <div class="res"><span>Resultado con 2 BRI</span><b class="v"><span id="iv_b_bri" class="badge ok">—</span></b></div>
       <h3 style="margin-top:18px"><span class="ic">◆</span>Si cae el PRI</h3>
-      <div class="res"><span>Bloqueo de la sede con el BRI de respaldo (2 canales)</span><b class="v" id="r_fail">—</b></div>
+      <div class="res"><span>Bloqueo de la sede con el BRI de respaldo (2 canales)</span><b class="v" id="iv_r_fail">—</b></div>
     </div>
   </div>
-  <div class="note" id="calcNote"></div>
+  <div class="note" id="iv_calcNote"></div>
   <p style="color:var(--dim);font-size:13.5px;margin-top:10px">Fórmulas usadas: A = y · s para el tráfico, y Erlang B para el bloqueo. El bloqueo con n canales y tráfico A se calcula con la recurrencia B(0) = 1, B(n) = A·B(n−1) / (n + A·B(n−1)). Los datos de tráfico son supuestos míos de diseño.</p>
 </section>
 
 <!-- ===================== EN TERRENO ===================== -->
-<section id="vtr">
+<section id="iv_vtr">
   <div class="sec-tag"><span class="num">08</span> Del aula al terreno</div>
   <h2 class="sec-title">Lo que veo de esto en mi trabajo</h2>
   <p class="lead">La RDSI es una tecnología de los años 80 y 90. Hoy está en retirada. Pero su idea, separar el canal de información del canal de control, la veo todos los días en la red de VTR.</p>
@@ -688,7 +1261,7 @@ ol.src li{margin-bottom:8px}
 </section>
 
 <!-- ===================== CIERRE ===================== -->
-<section id="cierre" style="border-bottom:none">
+<section id="iv_cierre" style="border-bottom:none">
   <div class="sec-tag"><span class="num">—</span> Cierre</div>
   <h2 class="sec-title">Dos señalizaciones, una sola llamada</h2>
   <div class="panel hot" style="max-width:900px">
@@ -706,7 +1279,7 @@ ol.src li{margin-bottom:8px}
 
 <footer id="fin">
   <span class="g">Gracias por su atención</span>
-  <p>Universidad Fermín Toro · Transmisión de Datos · Unidad IV</p>
+  <p>Universidad Fermín Toro · Transmisión de Datos · Unidades III y IV</p>
   <div class="signoff">Daiver Villalobos</div>
   <div class="small">Prof. Marly Rodríguez</div>
 </footer>
@@ -718,14 +1291,25 @@ document.getElementById("uft-seal").src="data:image/png;base64,iVBORw0KGgoAAAANS
 
 /* ---------- nav ---------- */
 const links=[...document.querySelectorAll('nav.toc a')];
-const secs=links.map(l=>document.querySelector(l.getAttribute('href'))).filter(Boolean);
+const part4=document.getElementById('unidad4');
+function curPart(){ return (window.scrollY+120>=part4.offsetTop)?4:3; }
 function onScroll(){
-  let idx=0; const y=window.scrollY+120;
-  secs.forEach((s,i)=>{ if(s.offsetTop<=y) idx=i; });
-  links.forEach(l=>l.classList.remove('active'));
-  if(links[idx]) links[idx].classList.add('active');
+  const cp=curPart(), y=window.scrollY+120;
+  links.forEach(l=>{
+    const p=l.dataset.part;
+    l.style.display=(!p||p==String(cp))?'':'none';
+    l.classList.remove('active');
+  });
+  let best=null;
+  links.forEach(l=>{
+    if(l.style.display==='none') return;
+    const s=document.querySelector(l.getAttribute('href'));
+    if(s&&s.offsetTop<=y) best=l;
+  });
+  const tab=links.find(l=>l.dataset.tab==String(cp)); if(tab) tab.classList.add('active');
+  if(best&&!best.dataset.tab) best.classList.add('active');
 }
-window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+window.addEventListener('scroll',onScroll,{passive:true}); window.addEventListener('resize',onScroll); onScroll();
 links.forEach(l=>l.addEventListener('click',()=>{document.getElementById('navToggle').checked=false;}));
 
 /* ---------- hero canvas ---------- */
@@ -761,13 +1345,375 @@ function el(tag,attrs,parent,text){
 }
 const fmt=(n,d)=>Number(n).toLocaleString('es-CL',{maximumFractionDigits:d===undefined?0:d,minimumFractionDigits:d===undefined?0:d});
 
+/* ---------- calculator core ---------- */
+function erlangB(A,B){ let Bn=1,n=0; while(n<5000){ n++; Bn=A*Bn/(n+A*Bn); if(Bn<=B) return n; } return n; }
+function readCalc(){
+  const g=id=>parseFloat(document.getElementById(id).value)||0;
+  return {n:g('c_subs'),pr:g('c_pr')/100,eP:g('c_eP'),eR:g('c_eR'),mht:g('c_mht')||1,msg:g('c_msg'),lP:g('c_lP'),lR:g('c_lR'),nC:g('c_nC'),pass:g('c_pass'),ext:g('c_ext')/100,gos:g('c_gos')};
+}
+function compute(){
+  const c=readCalc();
+  const erlP=c.n*(1-c.pr)*c.eP, erlR=c.n*c.pr*c.eR, erl=erlP+erlR;
+  const cP=erlP/c.mht, cR=erlR/c.mht, calls=cP+cR;
+  const msuDir=calls*c.msg;
+  const len=calls>0?(cP*c.lP+cR*c.lR)/calls:0;
+  const bps=msuDir*len*8;
+  const loadN=bps/2/64000, loadF=bps/64000;
+  const STPCAP=30000;
+  const stpTot=c.nC*2*msuDir*c.pass;
+  const stpN=stpTot/2/STPCAP, stpF=stpTot/STPCAP;
+  const per=2*msuDir*c.pass;
+  const maxC=per>0?Math.floor((2*0.4*STPCAP)/per):0;
+  const ext=erl*c.ext, route=ext/2;
+  const circ=route>0?erlangB(route,c.gos):0, e1=Math.ceil(circ/30);
+  return {erl,calls,msuDir,len,bps,loadN,loadF,stpTot,stpN,stpF,maxC,ext,route,circ,e1};
+}
+function badge(id,ok){ const e=document.getElementById(id); e.className='badge '+(ok?'ok':'bad'); e.textContent=ok?'Cumple':'No cumple'; }
+function updateCalc(){
+  const r=compute(), $=id=>document.getElementById(id);
+  $('r_erl').textContent=fmt(r.erl); $('r_calls').textContent=fmt(r.calls,1);
+  $('r_msu').textContent=fmt(r.msuDir); $('r_len').textContent=fmt(r.len,1);
+  $('r_bps').textContent=fmt(r.bps);
+  $('r_ln').textContent=fmt(r.loadN*100,1)+'%'; $('r_lf').textContent=fmt(r.loadF*100,1)+'%';
+  badge('b_ln',r.loadN<=0.30); badge('b_lf',r.loadF<=0.60);
+  $('r_stp').textContent=fmt(r.stpTot);
+  $('r_sn').textContent=fmt(r.stpN*100,1)+'%'; $('r_sf').textContent=fmt(r.stpF*100,1)+'%';
+  badge('b_sn',r.stpN<=0.40); badge('b_sf',r.stpF<=0.80);
+  $('r_max').textContent=fmt(r.maxC);
+  $('r_ext').textContent=fmt(r.ext); $('r_route').textContent=fmt(r.route);
+  $('r_circ').textContent=fmt(r.circ); $('r_e1').textContent=fmt(r.e1);
+  updateFailText();
+}
+document.querySelectorAll('.calc input,.calc select').forEach(i=>i.addEventListener('input',updateCalc));
+
+/* ---------- network diagram ---------- */
+const NODES={
+  SCP:{x:500,y:58,kind:'scp',name:'SCP',spc:'2-30'},
+  STP1:{x:350,y:168,kind:'stp',name:'STP-1',spc:'2-15'},
+  STP2:{x:650,y:168,kind:'stp',name:'STP-2',spc:'2-25'},
+  TEA:{x:260,y:300,kind:'ssp',name:'Tránsito A',spc:'2-50'},
+  TEB:{x:700,y:300,kind:'ssp',name:'Tránsito B',spc:'2-60'},
+  IE:{x:900,y:300,kind:'gw',name:'Internacional',spc:'2-200'},
+  CL1:{x:130,y:430,kind:'ssp',name:'Central local 1',spc:'2-100'},
+  CL2:{x:500,y:430,kind:'ssp',name:'Central local 2',spc:'2-110'},
+  CL3:{x:870,y:430,kind:'ssp',name:'Central local 3',spc:'2-120'}
+};
+const VOICE=[['CL1','TEA'],['CL1','TEB'],['CL2','TEA'],['CL2','TEB'],['CL3','TEA'],['CL3','TEB'],['TEA','TEB'],['TEB','IE'],['CL1','CL2'],['CL2','CL3']];
+const SIG=[['CL1','STP1'],['CL1','STP2'],['CL2','STP1'],['CL2','STP2'],['CL3','STP1'],['CL3','STP2'],['TEA','STP1'],['TEA','STP2'],['TEB','STP1'],['TEB','STP2'],['STP1','STP2'],['STP1','SCP'],['STP2','SCP']];
+const INFO={
+  CL:(n)=>({tipo:'SSP · Central local',func:'Conecta a los abonados por el lazo local. Ahí nacen y terminan las llamadas. Convierte la señal del abonado en mensajes SS7.',con:'2 troncales E1 (Tránsito A y B), 1 o 2 rutas directas a centrales vecinas, y 2 enlaces de señalización A (uno a cada STP).',dat:'100.000 abonados · 6.000 Erl · 60 llamadas/s · 180 MSU/s por sentido'}),
+  TE:()=>({tipo:'SSP · Central de tránsito (tandem)',func:'Junta el tráfico de las centrales locales. Trabaja en par con la otra central de tránsito. También puede actuar como SSP para filtrar llamadas de servicios de red inteligente.',con:'Troncales E1 hacia las 3 centrales locales y hacia la otra central de tránsito. 2 enlaces de señalización A, uno a cada STP.',dat:'Si una central de tránsito cae, la otra toma el tráfico.'}),
+  STP:()=>({tipo:'STP · Punto de transferencia (stand alone)',func:'Enruta los mensajes de señalización entre centrales y hacia el SCP. No toca la voz. Siempre va en par con el otro STP.',con:'Enlaces A con las 3 centrales locales, las 2 de tránsito y el SCP. Enlace C con el otro STP.',dat:'Capacidad 30.000 MSU/s · normal hasta 40% · con falla del otro, hasta 80%'}),
+  SCP:()=>({tipo:'SCP · Punto de control de servicios',func:'Base de datos de servicios, como 800 y portabilidad. Responde las consultas que le llegan por el STP, usando SCCP.',con:'Enlaces A con STP-1 y STP-2.',dat:'Usa señalización no relativa a circuito (MTP + SCCP).'}),
+  IE:()=>({tipo:'Central internacional (puerta de salida)',func:'Es la salida hacia otras redes y hacia el extranjero.',con:'Troncal E1 con el Tránsito B.',dat:'Se muestra para completar la jerarquía de la red.'})
+};
+function infoFor(id){ if(id.startsWith('CL')) return INFO.CL(id); if(id.startsWith('TE')) return INFO.TE(); if(id.startsWith('STP')) return INFO.STP(); return INFO[id]?INFO[id]():INFO.IE(); }
+
+const svg=document.getElementById('netsvg');
+const gV=el('g',{id:'gV'},svg), gS=el('g',{id:'gS'},svg), gL=el('g',{},svg), gN=el('g',{},svg), gD=el('g',{},svg);
+const linkEls=[];
+function ln(a,b,cls,parent){
+  const A=NODES[a],B=NODES[b];
+  const e=el('line',{x1:A.x,y1:A.y,x2:B.x,y2:B.y,class:cls},parent);
+  linkEls.push({e,a,b,cls}); return e;
+}
+VOICE.forEach(p=>ln(p[0],p[1],'v-link',gV));
+SIG.forEach(p=>ln(p[0],p[1],'s-link',gS));
+// labels
+el('text',{x:500,y:158,class:'netlbl'},gL,'enlace C');
+el('text',{x:430,y:108,class:'netlbl'},gL,'A');
+el('text',{x:570,y:108,class:'netlbl'},gL,'A');
+// subscribers
+['CL1','CL2','CL3'].forEach(id=>{
+  const n=NODES[id];
+  el('line',{x1:n.x,y1:n.y+23,x2:n.x,y2:n.y+52,stroke:'rgba(159,179,204,.6)','stroke-width':2},gL);
+  el('circle',{cx:n.x,cy:n.y+58,r:5,fill:'#9FB3CC'},gL);
+  el('text',{x:n.x,y:n.y+82,class:'netnote'},gL,'100.000 abonados (lazo local)');
+});
+// nodes
+const nodeEls={};
+Object.keys(NODES).forEach(id=>{
+  const n=NODES[id];
+  const g=el('g',{class:'node '+n.kind,'data-id':id,tabindex:0,role:'button','aria-label':n.name},gN);
+  el('rect',{x:n.x-62,y:n.y-23,width:124,height:46,rx:10},g);
+  el('text',{x:n.x,y:n.y-3,class:'t1'},g,n.name);
+  el('text',{x:n.x,y:n.y+13,class:'t2'},g,'SPC '+n.spc);
+  g.addEventListener('click',()=>selectNode(id));
+  g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectNode(id);}});
+  nodeEls[id]=g;
+});
+let selected=null;
+function selectNode(id){
+  selected=id;
+  Object.keys(nodeEls).forEach(k=>nodeEls[k].classList.toggle('sel',k===id));
+  linkEls.forEach(l=>{
+    const on=(l.a===id||l.b===id);
+    l.e.classList.toggle('hl',on); l.e.classList.toggle('dim',!on);
+  });
+  const d=infoFor(id), n=NODES[id];
+  document.getElementById('infoPanel').innerHTML=
+    '<h3><span class="ic">◆</span>'+n.name+' <span class="tag amber">SPC '+n.spc+'</span></h3>'+
+    '<p><b>'+d.tipo+'</b></p>'+
+    '<div class="kv"><div>Qué hace</div><div>'+d.func+'</div><div>Conexiones</div><div>'+d.con+'</div><div>Datos</div><div>'+d.dat+'</div></div>';
+}
+svg.addEventListener('click',e=>{
+  if(e.target===svg){ selected=null; Object.values(nodeEls).forEach(g=>g.classList.remove('sel')); linkEls.forEach(l=>l.e.classList.remove('hl','dim')); }
+});
+// layer toggles
+const bV=document.getElementById('bVoice'), bS=document.getElementById('bSig');
+bV.addEventListener('click',()=>{bV.classList.toggle('on'); gV.style.display=bV.classList.contains('on')?'':'none';});
+bS.addEventListener('click',()=>{bS.classList.toggle('on'); gS.style.display=bS.classList.contains('on')?'':'none';});
+// failure simulation
+let stp1Down=false;
+const bF=document.getElementById('bFail'), stat=document.getElementById('netStatus');
+function updateFailText(){
+  if(!stat) return;
+  if(!stp1Down) return;
+  const r=compute();
+  stat.innerHTML='<b>STP-1 caído.</b> El STP-2 toma todo el tráfico de señalización. Su carga sube de <b>'+fmt(r.stpN*100,1)+'%</b> a <b>'+fmt(r.stpF*100,1)+'%</b> de su capacidad (el límite es 80%). '+(r.stpF<=0.8?'<b class="ok">Ninguna llamada se pierde.</b>':'<b style="color:var(--hot)">Con estos datos el STP-2 se sobrecarga.</b>');
+}
+bF.addEventListener('click',()=>{
+  stp1Down=!stp1Down; bF.classList.toggle('on',stp1Down);
+  bF.textContent=stp1Down?'Restaurar STP-1':'Simular falla del STP-1';
+  nodeEls.STP1.classList.toggle('down',stp1Down);
+  linkEls.forEach(l=>{ if(l.cls==='s-link' && (l.a==='STP1'||l.b==='STP1')) l.e.classList.toggle('down',stp1Down); });
+  if(stp1Down) updateFailText(); else stat.textContent='STP-1 restaurado. La red vuelve a repartir la carga entre los dos STP.';
+});
+// call animation
+let animating=false;
+function animatePath(pts,color,speed,done){
+  const dot=el('circle',{r:7,fill:color,stroke:'#fff','stroke-width':1.5},gD);
+  const segs=[]; let total=0;
+  for(let i=0;i<pts.length-1;i++){const a=NODES[pts[i]],b=NODES[pts[i+1]];const L=Math.hypot(a.x-b.x,a.y-b.y);segs.push({a,b,L});total+=L;}
+  let t0=null;
+  function frame(ts){
+    if(t0===null) t0=ts;
+    let d=(ts-t0)/1000*speed;
+    if(d>=total){ dot.remove(); done&&done(); return; }
+    let i=0; while(d>segs[i].L){d-=segs[i].L;i++;}
+    const s=segs[i], f=d/s.L;
+    dot.setAttribute('cx',s.a.x+(s.b.x-s.a.x)*f); dot.setAttribute('cy',s.a.y+(s.b.y-s.a.y)*f);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+document.getElementById('bCall').addEventListener('click',()=>{
+  if(animating) return; animating=true;
+  const viaSTP=stp1Down?'STP2':'STP1';
+  gS.style.display=''; gV.style.display=''; bV.classList.add('on'); bS.classList.add('on');
+  stat.innerHTML='<b>1.</b> La central local 1 manda el <b style="color:var(--amber)">IAM</b> por el '+(stp1Down?'STP-2':'STP-1')+' hasta el Tránsito A, y de ahí hasta la central local 3.';
+  animatePath(['CL1',viaSTP,'TEA',viaSTP,'CL3'],'#FFB23E',420,()=>{
+    stat.innerHTML='<b>2.</b> La central local 3 contesta con <b style="color:var(--amber)">ACM</b> y <b style="color:var(--amber)">ANM</b>, de vuelta por el mismo camino.';
+    animatePath(['CL3',viaSTP,'TEA',viaSTP,'CL1'],'#FFB23E',520,()=>{
+      stat.innerHTML='<b>3.</b> Con el circuito armado, <b style="color:var(--cyan)">la voz</b> viaja por las troncales E1: central local 1 → Tránsito A → central local 3. La señalización ya no interviene.';
+      animatePath(['CL1','TEA','CL3'],'#46D6EB',260,()=>{
+        stat.innerHTML='<b>4.</b> Fin de la llamada: <b style="color:var(--amber)">REL</b> y <b style="color:var(--amber)">RLC</b> liberan los circuitos.';
+        animatePath(['CL1',viaSTP,'TEA',viaSTP,'CL3'],'#FFB23E',520,()=>{animating=false;});
+      });
+    });
+  });
+});
+
+/* ---------- E1 frame ---------- */
+(function(){
+  const box=document.getElementById('e1');
+  for(let i=0;i<32;i++){
+    const d=document.createElement('div'); d.textContent=i;
+    if(i===0){d.className='sync';d.title='Canal 0: sincronismo';}
+    else if(i===16){d.className='sig';d.title='Canal 16: señalización';}
+    else d.title='Canal '+i+': voz';
+    box.appendChild(d);
+  }
+})();
+
+/* ---------- sequence diagram ---------- */
+const COLS=[80,250,430,610,780];
+const COLNAME=['Abonado A','Central local 1','Tránsito A','Central local 3','Abonado B'];
+const ARR=[
+  {s:0,f:0,t:1,l:'Descuelgue'},
+  {s:1,f:1,t:0,l:'Tono de marcar'},
+  {s:2,f:0,t:1,l:'Dígitos marcados'},
+  {s:3,f:1,t:2,l:'IAM',sig:1},
+  {s:4,f:2,t:3,l:'IAM',sig:1},
+  {s:5,f:3,t:2,l:'ACM',sig:1},
+  {s:5,f:2,t:1,l:'ACM',sig:1},
+  {s:5,f:1,t:0,l:'Tono de llamada'},
+  {s:5,f:3,t:4,l:'Timbre'},
+  {s:6,f:4,t:3,l:'Descuelgue de B'},
+  {s:6,f:3,t:2,l:'ANM',sig:1},
+  {s:6,f:2,t:1,l:'ANM',sig:1},
+  {s:7,band:1,l:'Conversación: la voz va por las troncales E1'},
+  {s:8,f:0,t:1,l:'Cuelgue'},
+  {s:8,f:1,t:2,l:'REL',sig:1},
+  {s:8,f:2,t:3,l:'REL',sig:1},
+  {s:8,f:3,t:2,l:'RLC',sig:1},
+  {s:8,f:2,t:1,l:'RLC',sig:1}
+];
+const STEPS=[
+  {t:'Descuelgue',p:'El abonado A levanta el teléfono. El lazo local se cierra y la central local 1 detecta que alguien quiere llamar. Esta señal es de acceso, no es SS7.'},
+  {t:'Tono de marcar',p:'La central local 1 responde con el tono de marcar. Le avisa a A que ya puede digitar.'},
+  {t:'Marcación y elección de ruta',p:'A marca el número de B. La central local 1 lee el prefijo y ve que B está en la central local 3. Elige la ruta por el Tránsito A y reserva un circuito en esa troncal. A este circuito se le llama CIC.'},
+  {t:'IAM: se pide la llamada',p:'La central local 1 arma un mensaje IAM con el número de B y el circuito elegido. Lo manda por su enlace de señalización al STP, y el STP lo entrega al Tránsito A. La voz todavía no se mueve.'},
+  {t:'El tránsito sigue la cadena',p:'El Tránsito A reserva un circuito hacia la central local 3 y reenvía el IAM, otra vez por el STP. Así la llamada se va armando tramo por tramo.'},
+  {t:'ACM: el destino suena',p:'La central local 3 revisa que B exista y esté libre. Hace sonar su teléfono y manda un ACM de regreso. El mensaje llega hasta la central local 1, que le pone el tono de llamada a A.'},
+  {t:'ANM: B contesta',p:'B levanta el teléfono. La central local 3 manda un ANM hacia atrás. Cuando llega a la central local 1, el circuito de voz queda cerrado de punta a punta.'},
+  {t:'Conversación',p:'Ahora A y B hablan, en los dos sentidos a la vez. La voz viaja por las troncales E1. La señalización casi no se usa. Solo mantiene el enlace con unidades de relleno (FISU).'},
+  {t:'Cuelgue y liberación',p:'Uno de los dos cuelga. La central manda un REL por la señalización y la otra contesta con un RLC. Los circuitos quedan libres para otra llamada.'}
+];
+let cur=0, playTimer=null;
+const seq=document.getElementById('seqsvg');
+(function drawSeq(){
+  COLS.forEach((x,i)=>{
+    const g=el('g',{class:'seqhead'},seq);
+    el('rect',{x:x-62,y:8,width:124,height:34,rx:8},g);
+    el('text',{x:x,y:30},g,COLNAME[i]);
+    el('line',{x1:x,y1:42,x2:x,y2:590,class:'lifeline'},seq);
+  });
+  const defs=el('defs',{},seq);
+  [['aV','#46D6EB'],['aS','#FFB23E']].forEach(([id,col])=>{
+    const m=el('marker',{id:id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:7,markerHeight:7,orient:'auto-start-reverse'},defs);
+    el('path',{d:'M0,0 L10,5 L0,10 z',fill:col},m);
+  });
+  ARR.forEach((a,i)=>{
+    const y=72+i*28;
+    const g=el('g',{class:'arr '+(a.sig?'s':'v'),'data-s':a.s},seq);
+    a.el=g;
+    if(a.band){
+      el('rect',{x:COLS[0],y:y-14,width:COLS[4]-COLS[0],height:26,rx:6,fill:'rgba(70,214,235,.14)',stroke:'rgba(70,214,235,.5)'},g);
+      el('text',{x:(COLS[0]+COLS[4])/2,y:y+4},g,a.l);
+    } else {
+      const x1=COLS[a.f],x2=COLS[a.t],dir=x2>x1?1:-1;
+      el('line',{x1:x1+dir*2,y1:y,x2:x2-dir*2,y2:y,'marker-end':'url(#'+(a.sig?'aS':'aV')+')'},g);
+      el('text',{x:(x1+x2)/2,y:y-6},g,a.l);
+    }
+  });
+})();
+function renderSeq(){
+  ARR.forEach(a=>{
+    a.el.classList.toggle('hidden',a.s>cur);
+    a.el.classList.toggle('old',a.s<cur);
+  });
+  const st=STEPS[cur];
+  document.getElementById('stepBox').innerHTML=
+    '<div class="stepbar">'+STEPS.map((_,i)=>'<i class="'+(i<cur?'done':i===cur?'cur':'')+'"></i>').join('')+'</div>'+
+    '<span class="tag amber">Paso '+(cur+1)+' de '+STEPS.length+'</span><h3>'+st.t+'</h3><p>'+st.p+'</p>';
+  document.getElementById('sPrev').disabled=cur===0;
+  document.getElementById('sNext').disabled=cur===STEPS.length-1;
+}
+function stopPlay(){ if(playTimer){clearInterval(playTimer);playTimer=null;} document.getElementById('sPlay').textContent='▶ Reproducir'; document.getElementById('sPlay').classList.remove('on'); }
+document.getElementById('sPrev').addEventListener('click',()=>{stopPlay();if(cur>0){cur--;renderSeq();}});
+document.getElementById('sNext').addEventListener('click',()=>{stopPlay();if(cur<STEPS.length-1){cur++;renderSeq();}});
+document.getElementById('sReset').addEventListener('click',()=>{stopPlay();cur=0;renderSeq();});
+document.getElementById('sPlay').addEventListener('click',()=>{
+  if(playTimer){stopPlay();return;}
+  if(cur>=STEPS.length-1) cur=0;
+  renderSeq();
+  document.getElementById('sPlay').textContent='❚❚ Pausar'; document.getElementById('sPlay').classList.add('on');
+  playTimer=setInterval(()=>{ if(cur<STEPS.length-1){cur++;renderSeq();} else stopPlay(); },3200);
+});
+renderSeq();
+
+/* ---------- SS7 stack ---------- */
+const LAYERS=[
+  {id:'user',osi:'4 a 7',cls:'user',n:'TUP / ISUP',s:'Partes de usuario',d:'Son las que arman y cierran las llamadas. TUP es la Parte de Usuario de Telefonía. ISUP es la de RDSI. Empaquetan los mensajes que salen, desempaquetan los que entran y hablan con las funciones internas de la central.'},
+  {id:'tcap',osi:'4 a 7',cls:'user',n:'TCAP',s:'Capacidades de transacción',d:'Se usa cuando una aplicación pide datos a una base de datos y espera una respuesta. Va encima del SCCP. Por ejemplo, la consulta de un número 800 al SCP.'},
+  {id:'sccp',osi:'3 / 4',cls:'sccp',n:'SCCP',s:'Control de conexión de señalización',d:'Sirve para señalización que no está ligada a un circuito. Maneja direcciones extendidas, enrutamiento y gestión de red. Se usa para hablar con bases de datos, por ejemplo entre HLR y VLR en redes celulares, o entre SSP y SCP.'},
+  {id:'mtp3',osi:'3 · Red',cls:'mtp',n:'MTP nivel 3',s:'Funciones de red de señalización',d:'Maneja las unidades de mensaje (MSU) que entran y salen y gestiona la red de señalización. Tiene dos funciones: manejo de mensajes (enrutar, discriminar, distribuir) y gestión (control del enlace y de la red).'},
+  {id:'mtp2',osi:'2 · Enlace',cls:'mtp',n:'MTP nivel 2',s:'Funciones del enlace de señalización',d:'Hace confiable cada enlace. Delimita y alinea las unidades con la bandera, detecta y corrige errores, numera en secuencia, manda acuses de recibo, controla el flujo y avisa al nivel 3 si hay congestión.'},
+  {id:'mtp1',osi:'1 · Físico',cls:'mtp',n:'MTP nivel 1',s:'Enlace de datos de señalización',d:'Es la capa física. Define la interfaz eléctrica y mecánica. Un enlace es un camino bidireccional de 64 kbps, usado solo para unidades de señalización. En un E1 normalmente es el canal 16. Equipos como los cancelares de eco no se permiten en estos enlaces.'}
+];
+const stackEl=document.getElementById('stack');
+const OSI=[['7-4 · Aplic. a Transp.',['user','tcap']],['',['sccp']],['3 · Red',['mtp3']],['2 · Enlace',['mtp2']],['1 · Físico',['mtp1']]];
+LAYERS.forEach(L=>{
+  const o=document.createElement('div'); o.className='osi'; o.textContent='OSI '+L.osi;
+  const b=document.createElement('button'); b.className='layer '+L.cls; b.type='button'; b.dataset.id=L.id;
+  b.innerHTML=L.n+'<small>'+L.s+'</small>';
+  b.addEventListener('click',()=>pickLayer(L.id));
+  stackEl.appendChild(o); stackEl.appendChild(b);
+});
+function pickLayer(id){
+  const L=LAYERS.find(x=>x.id===id);
+  stackEl.querySelectorAll('.layer').forEach(x=>x.classList.toggle('sel',x.dataset.id===id));
+  document.getElementById('layerInfo').innerHTML='<h3><span class="ic">◆</span>'+L.n+'</h3><p><b>'+L.s+'.</b></p><p>'+L.d+'</p>'+
+    (id==='mtp3'||id==='mtp2'||id==='mtp1'?'<p style="font-size:13px"><span class="tag">MTP</span>Los tres niveles juntos forman la Parte de Transferencia de Mensajes. Todos los mensajes SS7 la usan. Asegura que la información llegue sin errores, en orden y sin pérdidas ni duplicados.</p>':'')+
+    (id==='sccp'?'<p style="font-size:13px"><span class="tag good">NSP</span>MTP más SCCP forman la Parte de Servicio de Red.</p>':'');
+}
+pickLayer('mtp3');
+
+/* ---------- SU fields ---------- */
+const FIELDS={
+  F:{n:'F · Bandera',o:'1 octeto',d:'Marca el inicio y el fin de la unidad. Siempre es 01111110: un cero, seis unos y un cero. Para que los datos no la imiten se usa el bit stuffing.'},
+  CK:{n:'CK · Chequeo',o:'2 octetos',d:'Código de chequeo del error. Con él el nivel 2 detecta si la unidad llegó dañada. Si hay error, descarta la unidad y pide la retransmisión.'},
+  SIF:{n:'SIF · Campo de información',o:'hasta 272 octetos',d:'Lleva el mensaje de señalización. Incluye una etiqueta con el SP de origen, el SP de destino y el número de circuito. Además trae el contenido, por ejemplo el número B.'},
+  SIO:{n:'SIO · Octeto de servicio',o:'1 octeto',d:'Dice a qué parte de usuario va el mensaje (TUP, ISUP, SCCP…) e incluye el indicador de red.'},
+  LI:{n:'LI · Indicador de longitud',o:'6 bits + 2 libres',d:'Dice cuántos octetos hay entre él y el CK. Así se sabe qué unidad es: LI = 0 es FISU, 1 o 2 es LSSU, más de 2 es MSU. Si el SIF tiene 62 octetos o más, LI vale 63. Los 2 bits libres (spare) solo completan el octeto.'},
+  FSN:{n:'FIB / FSN · Secuencia directa',o:'1 octeto',d:'FSN es el número de secuencia de la unidad que se manda. FIB es el bit indicador directo. Sirven para numerar las MSU y pedir la retransmisión.'},
+  BSN:{n:'BIB / BSN · Secuencia inversa',o:'1 octeto',d:'BSN es el número de la última unidad recibida bien. Así funciona como acuse de recibo. El bit BIB sirve para pedir que se retransmita.'},
+  SF:{n:'SF · Campo de estado',o:'1 o 2 octetos',d:'Solo la LSSU lo tiene. Informa el estado del enlace, por ejemplo cuando un enlace se reinicia después de una falla.'}
+};
+function chips(rowId,items,flagBoth){
+  const box=document.getElementById(rowId);
+  items.forEach(it=>{
+    const b=document.createElement('button'); b.type='button'; b.className='chip'+(it.k==='F'?' flag':''); b.dataset.k=it.k;
+    b.innerHTML=it.t+'<small>'+it.s+'</small>';
+    b.addEventListener('click',()=>{ document.querySelectorAll('.chip').forEach(c=>c.classList.remove('sel')); b.classList.add('sel'); showField(it.k); });
+    box.appendChild(b);
+  });
+}
+function showField(k){
+  const f=FIELDS[k];
+  document.getElementById('fieldInfo').innerHTML='<h3><span class="ic">◆</span>'+f.n+' <span class="tag amber">'+f.o+'</span></h3><p>'+f.d+'</p>';
+}
+chips('chipsMSU',[{k:'F',t:'F',s:'1 oct'},{k:'CK',t:'CK',s:'2 oct'},{k:'SIF',t:'SIF',s:'≤272 oct'},{k:'SIO',t:'SIO',s:'1 oct'},{k:'LI',t:'Spare+LI',s:'1 oct'},{k:'FSN',t:'FIB·FSN',s:'1 oct'},{k:'BSN',t:'BIB·BSN',s:'1 oct'},{k:'F',t:'F',s:'1 oct'}]);
+chips('chipsLSSU',[{k:'F',t:'F',s:'1 oct'},{k:'CK',t:'CK',s:'2 oct'},{k:'SF',t:'SF',s:'1–2 oct'},{k:'LI',t:'Spare+LI',s:'1 oct'},{k:'FSN',t:'FIB·FSN',s:'1 oct'},{k:'BSN',t:'BIB·BSN',s:'1 oct'},{k:'F',t:'F',s:'1 oct'}]);
+chips('chipsFISU',[{k:'F',t:'F',s:'1 oct'},{k:'CK',t:'CK',s:'2 oct'},{k:'LI',t:'Spare+LI',s:'1 oct'},{k:'FSN',t:'FIB·FSN',s:'1 oct'},{k:'BSN',t:'BIB·BSN',s:'1 oct'},{k:'F',t:'F',s:'1 oct'}]);
+showField('LI');
+
+/* ---------- bit stuffing ---------- */
+function stuff(bits){
+  let out='',ones=0,html='';
+  for(const ch of bits){
+    out+=ch; html+=ch;
+    if(ch==='1'){ ones++; if(ones===5){ out+='0'; html+='<span style="color:var(--amber);font-weight:700">0</span>'; ones=0; } }
+    else ones=0;
+  }
+  return {out,html};
+}
+function updateBits(){
+  const v=document.getElementById('bitsIn').value.replace(/[^01]/g,'');
+  const r=stuff(v);
+  document.getElementById('bitsOut').innerHTML=r.html||'—';
+  const added=r.out.length-v.length;
+  document.getElementById('bitsMsg').textContent=added>0?('Se agregaron '+added+(added===1?' cero':' ceros')+'. El receptor los quita y recupera el mensaje original.'):'No hay cinco unos seguidos, así que no se agrega nada.';
+}
+document.getElementById('bitsIn').addEventListener('input',updateBits);
+updateBits();
+
+updateCalc();
+selectNode('CL1');
+})();
+</script>
+<script>
+(function(){
+
+/* ---------- helpers ---------- */
+const NS='http://www.w3.org/2000/svg';
+function el(tag,attrs,parent,text){
+  const e=document.createElementNS(NS,tag);
+  for(const k in (attrs||{})) e.setAttribute(k,attrs[k]);
+  if(text!==undefined) e.textContent=text;
+  if(parent) parent.appendChild(e);
+  return e;
+}
+const fmt=(n,d)=>Number(n).toLocaleString('es-CL',{maximumFractionDigits:d===undefined?0:d,minimumFractionDigits:d===undefined?0:d});
+
 /* ---------- Erlang B ---------- */
 function erlProb(A,n){ let b=1; for(let k=1;k<=n;k++) b=A*b/(k+A*b); return b; }
 function erlN(A,gos){ if(A<=0) return 0; let n=0; while(n<5000){ n++; if(erlProb(A,n)<=gos) return n; } return n; }
 
 /* ---------- calculator ---------- */
 function readCalc(){
-  const g=id=>parseFloat(document.getElementById(id).value)||0;
+  const g=id=>parseFloat(document.getElementById('iv_'+id).value)||0;
   return {ext:g('c_ext'),eH:g('c_eH'),pH:g('c_pH')/100,usr:g('c_usr'),eO:g('c_eO'),pO:g('c_pO')/100,mht:g('c_mht')||1,msg:g('c_msg'),len:g('c_len'),gos:g('c_gos')};
 }
 function compute(){
@@ -779,9 +1725,9 @@ function compute(){
   const fail=erlProb(AH,2);
   return {c,AH,nH,pri,free,calls,dload,AO,b1,b2,nO,bri,fail};
 }
-function badge(id,ok,txt){ const e=document.getElementById(id); e.className='badge '+(ok?'ok':'bad'); e.textContent=txt||(ok?'Cumple':'No cumple'); }
+function badge(id,ok,txt){ const e=document.getElementById('iv_'+id); e.className='badge '+(ok?'ok':'bad'); e.textContent=txt||(ok?'Cumple':'No cumple'); }
 function updateCalc(){
-  const r=compute(), $=id=>document.getElementById(id);
+  const r=compute(), $=id=>document.getElementById('iv_'+id);
   $('r_AH').textContent=fmt(r.AH,2);
   $('r_nH').textContent=fmt(r.nH);
   $('r_pri').textContent=fmt(r.pri);
@@ -797,7 +1743,7 @@ function updateCalc(){
   $('calcNote').innerHTML='Con estos datos la sede necesita <b>'+r.nH+'</b> canales B y un PRI le da 30, por eso queda con <b>'+r.free+'</b> libres. Cada oficina necesita <b>'+r.nO+'</b> canales B, o sea <b>'+r.bri+'</b> BRI. Si cae el PRI, el BRI de respaldo deja pasar solo una parte de las llamadas: el bloqueo sube a <b>'+fmt(r.fail*100,0)+'%</b>.';
   if(typeof refreshFailText==='function') refreshFailText();
 }
-document.querySelectorAll('.calc input,.calc select').forEach(i=>i.addEventListener('input',updateCalc));
+document.querySelectorAll('.calc4 input,.calc4 select').forEach(i=>i.addEventListener('input',updateCalc));
 
 /* ---------- network diagram ---------- */
 const N={
@@ -829,7 +1775,7 @@ const ACC=[['HQ','CL1','pri'],['HQ','CL1','bak'],['OF1','CL1','bri'],['OF2','CL1
 const TRUNK=[['CL1','TEA'],['CL1','TEB'],['TEA','CL3'],['TEB','CL3']];
 const SIG=[['CL1','STP1'],['CL1','STP2'],['TEA','STP1'],['TEA','STP2'],['CL3','STP1'],['CL3','STP2'],['STP1','STP2']];
 
-const svg=document.getElementById('netsvg');
+const svg=document.getElementById('iv_netsvg');
 const gCore=el('g',{id:'gCore'},svg), gAcc=el('g',{id:'gAcc'},svg), gLbl=el('g',{},svg), gNod=el('g',{},svg), gDot=el('g',{},svg);
 const coreNodes=['STP1','STP2','TEA','TEB','CL3','AB'];
 function dpath(a,b,bend){
@@ -869,12 +1815,12 @@ function selectNode(id){
   Object.values(nodeEls).forEach(g=>g.classList.remove('sel'));
   nodeEls[id].classList.add('sel');
   const i=INFO[id], n=N[id];
-  document.getElementById('infoPanel').innerHTML='<h3><span class="ic">◆</span>'+n.n+'</h3><span class="tag">'+i.tipo+'</span>'+
+  document.getElementById('iv_infoPanel').innerHTML='<h3><span class="ic">◆</span>'+n.n+'</h3><span class="tag">'+i.tipo+'</span>'+
     '<p style="margin-top:8px">'+i.func+'</p><div class="kv"><div>Conexiones</div><div>'+i.con+'</div><div>Datos</div><div>'+i.dat+'</div></div>';
 }
 selectNode('HQ');
 
-const bAcc=document.getElementById('bAcc'), bCore=document.getElementById('bCore'), stat=document.getElementById('netStatus');
+const bAcc=document.getElementById('iv_bAcc'), bCore=document.getElementById('iv_bCore'), stat=document.getElementById('iv_netStatus');
 function applyVis(){
   gAcc.style.display=bAcc.classList.contains('on')?'':'none';
   gLbl.style.display=bAcc.classList.contains('on')?'':'none';
@@ -890,7 +1836,7 @@ function refreshFailText(){
   const r=compute();
   stat.innerHTML='<b style="color:var(--hot)">PRI caído.</b> La sede queda con el BRI de respaldo: 2 canales B. Con '+fmt(r.AH,1)+' Erl de tráfico hacia la red, el bloqueo sube a <b>'+fmt(r.fail*100,0)+'%</b>. Solo pasan las llamadas más urgentes.';
 }
-document.getElementById('bFail').addEventListener('click',function(){
+document.getElementById('iv_bFail').addEventListener('click',function(){
   priDown=!priDown;
   this.classList.toggle('on',priDown);
   this.textContent=priDown?'Restaurar PRI':'Simular falla del PRI';
@@ -917,7 +1863,7 @@ function animatePath(pts,color,speed,done,viaBak){
   }
   requestAnimationFrame(frame);
 }
-document.getElementById('bCall').addEventListener('click',()=>{
+document.getElementById('iv_bCall').addEventListener('click',()=>{
   if(animating) return; animating=true;
   bAcc.classList.add('on'); bCore.classList.add('on'); applyVis();
   const acc=priDown?'por el BRI de respaldo':'por el PRI';
@@ -939,7 +1885,7 @@ document.getElementById('bCall').addEventListener('click',()=>{
 
 /* ---------- reference points ---------- */
 (function(){
-  const s=document.getElementById('refsvg');
+  const s=document.getElementById('iv_refsvg');
   const rows=[
     {y:68,lbl:'Oficina (BRI)',nodes:[['PC / fax','TE2'],['Adaptador','TA'],['NT1','NT1'],['Central local 1','Central']],refs:['R','S / T','U']},
     {y:185,lbl:'Sede (PRI)',nodes:[['Tel. digital','TE1'],['PBX','NT2'],['NT1','integrado'],['Central local 1','Central']],refs:['S','T','U']}
@@ -962,7 +1908,7 @@ document.getElementById('bCall').addEventListener('click',()=>{
 
 /* ---------- E1 del PRI ---------- */
 (function(){
-  const box=document.getElementById('e1pri');
+  const box=document.getElementById('iv_e1pri');
   for(let i=0;i<32;i++){
     const d=document.createElement('div');
     if(i===0){d.className='sync';d.textContent='0 · S';d.title='Intervalo 0: sincronización';}
@@ -975,7 +1921,7 @@ document.getElementById('bCall').addEventListener('click',()=>{
 /* ---------- sequence diagram ---------- */
 const AC=[{id:'PBX',x:70,t:'PBX sede'},{id:'CL1',x:250,t:'Central local 1'},{id:'TEA',x:420,t:'Tránsito A + STP'},{id:'CL3',x:590,t:'Central local 3'},{id:'AB',x:710,t:'Abonado B'}];
 const AX={}; AC.forEach(a=>AX[a.id]=a.x);
-const ss=document.getElementById('seqsvg');
+const ss=document.getElementById('iv_seqsvg');
 AC.forEach(a=>{
   const g=el('g',{class:'seqhead'},ss);
   el('rect',{x:a.x-52,y:8,width:104,height:34,rx:8},g);
@@ -1024,21 +1970,21 @@ let cur=0, playTimer=null;
 function renderSeq(){
   ARR.forEach(a=>{ a.el.classList.toggle('hidden',a.s>cur); a.el.classList.toggle('old',a.s<cur); });
   const st=STEPS[cur];
-  document.getElementById('stepBox').innerHTML=
+  document.getElementById('iv_stepBox').innerHTML=
     '<div class="stepbar">'+STEPS.map((_,i)=>'<i class="'+(i<cur?'done':i===cur?'cur':'')+'"></i>').join('')+'</div>'+
     '<span class="tag amber">Paso '+(cur+1)+' de '+STEPS.length+'</span><h3>'+st.t+'</h3><p>'+st.p+'</p>';
-  document.getElementById('sPrev').disabled=cur===0;
-  document.getElementById('sNext').disabled=cur===STEPS.length-1;
+  document.getElementById('iv_sPrev').disabled=cur===0;
+  document.getElementById('iv_sNext').disabled=cur===STEPS.length-1;
 }
-function stopPlay(){ if(playTimer){clearInterval(playTimer);playTimer=null;} const b=document.getElementById('sPlay'); b.textContent='▶ Reproducir'; b.classList.remove('on'); }
-document.getElementById('sPrev').addEventListener('click',()=>{stopPlay();if(cur>0){cur--;renderSeq();}});
-document.getElementById('sNext').addEventListener('click',()=>{stopPlay();if(cur<STEPS.length-1){cur++;renderSeq();}});
-document.getElementById('sReset').addEventListener('click',()=>{stopPlay();cur=0;renderSeq();});
-document.getElementById('sPlay').addEventListener('click',()=>{
+function stopPlay(){ if(playTimer){clearInterval(playTimer);playTimer=null;} const b=document.getElementById('iv_sPlay'); b.textContent='▶ Reproducir'; b.classList.remove('on'); }
+document.getElementById('iv_sPrev').addEventListener('click',()=>{stopPlay();if(cur>0){cur--;renderSeq();}});
+document.getElementById('iv_sNext').addEventListener('click',()=>{stopPlay();if(cur<STEPS.length-1){cur++;renderSeq();}});
+document.getElementById('iv_sReset').addEventListener('click',()=>{stopPlay();cur=0;renderSeq();});
+document.getElementById('iv_sPlay').addEventListener('click',()=>{
   if(playTimer){stopPlay();return;}
   if(cur>=STEPS.length-1) cur=0;
   renderSeq();
-  const b=document.getElementById('sPlay'); b.textContent='❚❚ Pausar'; b.classList.add('on');
+  const b=document.getElementById('iv_sPlay'); b.textContent='❚❚ Pausar'; b.classList.add('on');
   playTimer=setInterval(()=>{ if(cur<STEPS.length-1){cur++;renderSeq();} else stopPlay(); },3200);
 });
 renderSeq();
@@ -1050,7 +1996,7 @@ const LAY=[
   {id:'i430',osi:'1 · Físico',cls:'sccp',n:'I.430 / I.431',s:'Interfaz física del acceso',d:'I.430 es la interfaz del acceso básico (BRI) y I.431 la del acceso primario (PRI). Definen la parte eléctrica y mecánica, la codificación de línea y la estructura de trama. En el BRI la interfaz S/T trabaja a 192 kbps. En el PRI europeo trabaja a 2,048 Mbps.'},
   {id:'b',osi:'Usuario',cls:'sccp',n:'Canal B',s:'Plano del usuario',d:'Lleva la voz o los datos a 64 kbps. No tiene protocolos de señalización dentro. Su contenido se entrega tal cual a quien está al otro extremo.'}
 ];
-const st4=document.getElementById('stack4');
+const st4=document.getElementById('iv_stack4');
 LAY.forEach(L=>{
   const o=document.createElement('div'); o.className='osi'; o.textContent='OSI '+L.osi;
   const b=document.createElement('button'); b.className='layer '+L.cls; b.type='button'; b.dataset.id=L.id;
@@ -1061,7 +2007,7 @@ LAY.forEach(L=>{
 function pickLayer(id){
   const L=LAY.find(x=>x.id===id);
   st4.querySelectorAll('.layer').forEach(x=>x.classList.toggle('sel',x.dataset.id===id));
-  document.getElementById('layerInfo4').innerHTML='<h3><span class="ic">◆</span>'+L.n+'</h3><p><b>'+L.s+'.</b></p><p>'+L.d+'</p>';
+  document.getElementById('iv_layerInfo4').innerHTML='<h3><span class="ic">◆</span>'+L.n+'</h3><p><b>'+L.s+'.</b></p><p>'+L.d+'</p>';
 }
 pickLayer('q931');
 
@@ -1073,18 +2019,18 @@ const LF={
   I:{n:'I · Información',o:'largo variable',d:'Aquí va el mensaje Q.931. Solo las tramas de información lo llevan. Las de supervisión no tienen este campo.'},
   FCS:{n:'FCS · Chequeo',o:'2 octetos',d:'Código para detectar errores en la trama. Si el receptor encuentra un error, descarta la trama y pide que se retransmita.'}
 };
-const lc=document.getElementById('lapdChips');
+const lc=document.getElementById('iv_lapdChips');
 [['F','F','Bandera · 1 oct'],['A','A','Dirección · 2 oct'],['C','C','Control · 1-2 oct'],['I','I','Información · Q.931'],['FCS','FCS','Chequeo · 2 oct'],['F','F','Bandera · 1 oct']].forEach((it,idx)=>{
-  const b=document.createElement('button'); b.type='button'; b.className='chip'+(it[0]==='F'?' flag':''); b.dataset.k=it[0]; b.dataset.i=idx;
+  const b=document.createElement('button'); b.type='button'; b.className='chip4'+(it[0]==='F'?' flag':''); b.dataset.k=it[0]; b.dataset.i=idx;
   b.innerHTML=it[1]+'<small>'+it[2]+'</small>';
-  b.addEventListener('click',()=>{lc.querySelectorAll('.chip').forEach(c=>c.classList.remove('sel')); b.classList.add('sel'); showLF(it[0]);});
+  b.addEventListener('click',()=>{lc.querySelectorAll('.chip4').forEach(c=>c.classList.remove('sel')); b.classList.add('sel'); showLF(it[0]);});
   lc.appendChild(b);
 });
 function showLF(k){
   const f=LF[k];
-  document.getElementById('lapdInfo').innerHTML='<h3><span class="ic">◆</span>'+f.n+'</h3><span class="tag amber">'+f.o+'</span><p style="margin-top:8px">'+f.d+'</p>';
+  document.getElementById('iv_lapdInfo').innerHTML='<h3><span class="ic">◆</span>'+f.n+'</h3><span class="tag amber">'+f.o+'</span><p style="margin-top:8px">'+f.d+'</p>';
 }
-lc.querySelector('.chip').classList.add('sel'); showLF('F');
+lc.querySelector('.chip4').classList.add('sel'); showLF('F');
 
 updateCalc();
 })();

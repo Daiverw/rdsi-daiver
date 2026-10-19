@@ -220,6 +220,11 @@ ol.src li{margin-bottom:8px}
 
 /* ---- Unidad IV extras ---- */
 .grid2.even{grid-template-columns:1fr 1fr;align-items:start}
+.cellbar{display:flex;border:1px solid rgba(70,214,235,.4);border-radius:8px;overflow:hidden;margin:10px 0;min-width:560px}
+.cellbar div{padding:10px 4px;text-align:center;border-right:1px solid rgba(70,214,235,.25);color:var(--cyan);font-size:13px}
+.cellbar div b{display:block}.cellbar small{display:block;color:var(--dim);font-size:10.5px}
+.cellbar .pay{background:rgba(255,178,62,.1);color:var(--amber);border-right:none}
+.cellwrap{overflow-x:auto}
 .chain{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .chain .cn{background:var(--panel,#11294A);border:1px solid rgba(70,214,235,.35);border-radius:8px;padding:8px 12px;font-family:'Saira Condensed',sans-serif;font-weight:700;color:var(--cyan);text-align:center}
 .chain .cn small{display:block;font:400 11px 'IBM Plex Sans',sans-serif;color:var(--dim)}
@@ -321,7 +326,9 @@ nav.toc .sep{width:1px;background:var(--line);margin:4px 6px}
     <a href="#iv_funcionamiento" data-part="4">Funcionamiento</a>
     <a href="#iv_contenido" data-part="4">Contenido</a>
     <a href="#iv_arquitectura" data-part="4">Arquitectura</a>
+    <a href="#iv_banda" data-part="4">Banda ancha</a>
     <a href="#iv_comparacion" data-part="4">RDSI vs SS7</a>
+    <a href="#iv_objetivos" data-part="4">Objetivos</a>
     <a href="#iv_explicacion" data-part="4">Explicación</a>
     <a href="#iv_vtr" data-part="4">En terreno</a>
     <a href="#iv_cierre" data-part="4">Cierre</a>
@@ -1460,8 +1467,186 @@ nav.toc .sep{width:1px;background:var(--line);margin:4px 6px}
 </section>
 
 <!-- ===================== COMPARACIÓN ===================== -->
+<!-- ===================== U4: RDSI DE BANDA ANCHA ===================== -->
+<section id="iv_banda">
+  <div class="sec-tag"><span class="num">06</span> RDSI de banda ancha</div>
+  <h2 class="sec-title">La RDSI de banda ancha (RDSI-BA)</h2>
+  <p class="lead">Mi diseño usa la RDSI de banda estrecha: canales B de 64 kbps, BRI y PRI. Pero la unidad también pide la de banda ancha. Aquí explico qué es, cómo se conecta, cómo está armada por capas y en qué se diferencia. El nombre en inglés es B-ISDN.</p>
+
+  <div class="grid2 even">
+    <div class="panel">
+      <h3><span class="ic">◆</span>Por qué existe</h3>
+      <p>La banda estrecha llega a 2 Mbps con un PRI. Eso sirve para voz y datos simples. Pero hay servicios que piden mucho más: video de buena calidad, transferencia de archivos grandes, interconexión de redes locales, imágenes médicas.</p>
+      <p>La RDSI-BA nació para llevar todo eso por un solo acceso. Trabaja a <b style="color:var(--white)">155,52 Mbps</b> y a <b style="color:var(--white)">622,08 Mbps</b>, con fibra óptica. Y no usa canales B y D. Usa una técnica distinta, llamada <b style="color:var(--white)">ATM</b>.</p>
+    </div>
+    <div class="panel amber">
+      <h3><span class="ic">◆</span>La idea de ATM</h3>
+      <p>ATM es el modo de transferencia asíncrono. Toda la información, voz, datos o video, se corta en paquetes pequeños y todos del mismo tamaño. Cada paquete se llama <b style="color:var(--white)">celda</b> y mide <b style="color:var(--white)">53 octetos</b>.</p>
+      <p>Como las celdas son cortas y fijas, los equipos las conmutan rápido por hardware. Y la voz no espera detrás de un paquete largo de datos. Por eso sirve para servicios con tiempos distintos en una misma red.</p>
+    </div>
+  </div>
+
+  <!-- CONFIGURACIÓN -->
+  <h3 class="sub" id="iv_ba_config">Configuración: los equipos y los puntos de referencia</h3>
+  <p style="color:var(--dim);max-width:900px;margin-top:0">La configuración de la RDSI-BA se parece a la de banda estrecha. Los equipos tienen los mismos papeles, con una B delante. Cambian los nombres de los puntos de referencia: aquí son S<sub>B</sub> y T<sub>B</sub>.</p>
+  <div class="chain">
+    <div class="cn">B-TE1<small>Terminal RDSI-BA</small></div><i></i>
+    <div class="cn">B-NT2<small>Conmuta celdas ATM</small></div><i></i>
+    <div class="cn">B-NT1<small>Terminación de línea</small></div><i class="pcm"></i>
+    <div class="cn">Central<small>Conmutador ATM</small></div>
+  </div>
+  <p style="color:var(--dim);font-size:13.5px;margin:8px 0 16px">Puntos de referencia: S<sub>B</sub> entre el terminal y el B-NT2 · T<sub>B</sub> entre el B-NT2 y el B-NT1 · U entre el B-NT1 y la red.</p>
+  <div class="tablewrap"><table class="spec">
+    <tr><th>Equipo</th><th>Qué es</th><th>Parecido en banda estrecha</th></tr>
+    <tr><td class="k">B-TE1</td><td>Terminal que ya habla RDSI-BA y ATM.</td><td>TE1</td></tr>
+    <tr><td class="k">B-TE2</td><td>Terminal que no es de RDSI-BA. Entra por un adaptador.</td><td>TE2</td></tr>
+    <tr><td class="k">B-TA</td><td>Adaptador para los equipos que no son de RDSI-BA.</td><td>TA</td></tr>
+    <tr><td class="k">B-NT2</td><td>Concentra y conmuta las celdas de varios terminales. Puede ser una central privada o una red local.</td><td>NT2</td></tr>
+    <tr><td class="k">B-NT1</td><td>Termina la línea de fibra y hace de límite con la red.</td><td>NT1</td></tr>
+  </table></div>
+
+  <!-- MODELO -->
+  <h3 class="sub" id="iv_ba_modelo">Modelo de referencia de protocolos</h3>
+  <div class="grid2 even">
+    <div class="panel">
+      <p>El modelo de la RDSI-BA tiene tres planos y varias capas. Se parece al de banda estrecha, pero las capas de abajo son distintas.</p>
+      <ul class="clean">
+        <li><b>Plano del usuario.</b> Lleva la información del usuario, con su control de flujo y de errores.</li>
+        <li><b>Plano de control.</b> Lleva la señalización que arma y cierra las conexiones.</li>
+        <li><b>Plano de gestión.</b> Coordina los planos entre sí y vigila cada capa (operación y mantenimiento).</li>
+      </ul>
+    </div>
+    <div class="tablewrap"><table class="spec">
+      <tr><th>Capa</th><th>Qué hace</th></tr>
+      <tr><td class="k">Capas altas</td><td>Los protocolos del usuario y del control: aplicaciones, Q.2931.</td></tr>
+      <tr><td class="k">AAL</td><td>Adapta la información del usuario a celdas de 48 octetos.</td></tr>
+      <tr><td class="k">ATM</td><td>Multiplexa y conmuta las celdas. Arma el encabezado.</td></tr>
+      <tr><td class="k">Física</td><td>Transporta los bits por la fibra.</td></tr>
+    </table></div>
+  </div>
+
+  <!-- PROTOCOLOS -->
+  <h3 class="sub" id="iv_ba_proto">Protocolos de la RDSI-BA</h3>
+  <div class="tablewrap"><table class="spec">
+    <tr><th>Protocolo</th><th>Capa o plano</th><th>Para qué sirve</th></tr>
+    <tr><td class="k">I.432</td><td>Capa física</td><td>Interfaz física usuario-red, a 155 y 622 Mbps.</td></tr>
+    <tr><td class="k">I.361</td><td>Capa ATM</td><td>Formato de la celda y funciones de la capa ATM.</td></tr>
+    <tr><td class="k">I.363</td><td>Capa AAL</td><td>Los tipos de adaptación: AAL1, AAL2, AAL3/4 y AAL5.</td></tr>
+    <tr><td class="k">Q.2931</td><td>Plano de control (usuario-red)</td><td>Arma, mantiene y cierra las conexiones. Viene de Q.931.</td></tr>
+    <tr><td class="k">SAAL (SSCOP y SSCF)</td><td>Bajo Q.2931</td><td>Entrega los mensajes de señalización sin errores, sobre AAL5.</td></tr>
+    <tr><td class="k">B-ISUP</td><td>Plano de control (entre centrales)</td><td>La señalización entre centrales de banda ancha. Es la versión de ISUP para ATM.</td></tr>
+    <tr><td class="k">I.610</td><td>Plano de gestión</td><td>Operación y mantenimiento de la red ATM.</td></tr>
+  </table></div>
+
+  <!-- CAPA FÍSICA -->
+  <h3 class="sub" id="iv_ba_fisica">Capa física</h3>
+  <div class="grid2 even">
+    <div class="panel">
+      <p>La capa física lleva las celdas hasta el otro lado. Se divide en dos subcapas:</p>
+      <ul class="clean">
+        <li><b>Dependiente del medio (PMD).</b> Maneja el medio y la señal: fibra óptica, niveles de luz, temporización de bits.</li>
+        <li><b>Convergencia de transmisión (TC).</b> Arma la trama de transmisión, genera y revisa el HEC de cada celda, encuentra dónde empieza cada celda y mete celdas vacías cuando no hay datos.</li>
+      </ul>
+    </div>
+    <div class="panel good">
+      <h3><span class="ic">◆</span>Velocidades y medio</h3>
+      <p>Las dos velocidades normales son <b style="color:var(--white)">155,52 Mbps</b> (STM-1 de SDH) y <b style="color:var(--white)">622,08 Mbps</b> (STM-4). La carga útil del STM-1 es de 149,76 Mbps. Se usa fibra óptica, que aquí sí hace falta.</p>
+      <p>Esto lo veo en mi trabajo. Una fibra que se funde mal, o con mucha atenuación en el OTDR, baja la calidad de todo lo que viaja por ella. En banda ancha eso se nota mucho más que en un par de cobre.</p>
+    </div>
+  </div>
+
+  <!-- CAPA ATM -->
+  <h3 class="sub" id="iv_ba_atm">Capa ATM</h3>
+  <p style="color:var(--dim);max-width:900px;margin-top:0">La celda mide 53 octetos: 5 de encabezado y 48 de información. El encabezado tiene los campos de abajo, en la interfaz usuario-red (UNI).</p>
+  <div class="cellwrap"><div class="cellbar" role="img" aria-label="Celda ATM: GFC 4 bits, VPI 8 bits, VCI 16 bits, PT 3 bits, CLP 1 bit, HEC 8 bits, carga útil 48 octetos">
+    <div style="flex:4"><b>GFC</b><small>4 bits</small></div>
+    <div style="flex:8"><b>VPI</b><small>8 bits</small></div>
+    <div style="flex:16"><b>VCI</b><small>16 bits</small></div>
+    <div style="flex:3"><b>PT</b><small>3 bits</small></div>
+    <div style="flex:1"><b>CLP</b><small>1</small></div>
+    <div style="flex:8"><b>HEC</b><small>8 bits</small></div>
+    <div class="pay" style="flex:60"><b>Información</b><small>48 octetos</small></div>
+  </div></div>
+  <div class="tablewrap" style="margin-top:14px"><table class="spec">
+    <tr><th>Campo</th><th>Qué hace</th></tr>
+    <tr><td class="k">GFC</td><td>Control de flujo genérico. Solo existe en la interfaz usuario-red. Entre centrales (NNI) esos 4 bits se usan para ampliar el VPI a 12 bits.</td></tr>
+    <tr><td class="k">VPI</td><td>Identificador de camino virtual. Agrupa varios canales virtuales que van al mismo destino.</td></tr>
+    <tr><td class="k">VCI</td><td>Identificador de canal virtual. Marca cada conexión dentro del camino.</td></tr>
+    <tr><td class="k">PT</td><td>Tipo de carga. Dice si la celda lleva datos del usuario, o gestión de la red, y si hay congestión.</td></tr>
+    <tr><td class="k">CLP</td><td>Prioridad de pérdida. Si es 1, la red puede descartar esa celda primero si hay congestión.</td></tr>
+    <tr><td class="k">HEC</td><td>Control de errores del encabezado. Detecta errores y corrige los de un solo bit. También sirve para encontrar el inicio de cada celda.</td></tr>
+  </table></div>
+  <div class="grid2 even" style="margin-top:18px">
+    <div class="panel">
+      <h3><span class="ic">◆</span>Funciones de la capa ATM</h3>
+      <ul class="clean">
+        <li>Multiplexar y separar celdas de conexiones distintas.</li>
+        <li>Cambiar los valores de VPI y VCI en cada conmutador.</li>
+        <li>Agregar el encabezado al enviar y quitarlo al recibir.</li>
+        <li>Controlar el flujo en la interfaz con el usuario.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3><span class="ic">◆</span>Por qué 53 octetos</h3>
+      <p>Una celda corta reduce el retardo. Con voz a 64 kbps, juntar 48 octetos toma 6 milisegundos. Una celda larga haría esperar mucho más. Y como todas son iguales, el conmutador no tiene que medir cada una. La conmutación se hace en hardware y es rápida.</p>
+      <p style="margin-bottom:0">El costo es que el encabezado pesa: 5 de 53 octetos, cerca del 9%.</p>
+    </div>
+  </div>
+
+  <!-- AAL -->
+  <h3 class="sub" id="iv_ba_aal">Capa AAL y capa de adaptación ATM</h3>
+  <p style="color:var(--dim);max-width:900px;margin-top:0">En el programa aparecen como dos temas, capa AAL y capa de adaptación ATM. Son lo mismo: AAL significa ATM Adaptation Layer, la capa de adaptación ATM.</p>
+  <div class="panel hot">
+    <p>La red ATM solo sabe de celdas de 48 octetos de información. Pero las aplicaciones mandan cosas muy distintas: voz con ritmo fijo, video comprimido, tramas de datos largas. La AAL hace de puente. Corta la información del usuario en trozos para las celdas y la arma de nuevo en el destino.</p>
+    <p style="margin-bottom:0">Tiene dos subcapas. La de <b style="color:var(--white)">convergencia (CS)</b> prepara la información según el servicio. La de <b style="color:var(--white)">segmentación y reensamble (SAR)</b> la corta en trozos de 48 octetos y la arma al otro lado.</p>
+  </div>
+  <div class="tablewrap" style="margin-top:16px"><table class="spec">
+    <tr><th>Clase</th><th>Velocidad</th><th>Sincronía</th><th>Modo</th><th>AAL</th><th>Ejemplo</th></tr>
+    <tr><td class="k">A</td><td>Constante</td><td>Sí</td><td>Con conexión</td><td>AAL1</td><td>Voz a 64 kbps, emulación de circuito</td></tr>
+    <tr><td class="k">B</td><td>Variable</td><td>Sí</td><td>Con conexión</td><td>AAL2</td><td>Voz o video comprimidos</td></tr>
+    <tr><td class="k">C</td><td>Variable</td><td>No</td><td>Con conexión</td><td>AAL5 (o AAL3/4)</td><td>Datos con conexión, como frame relay</td></tr>
+    <tr><td class="k">D</td><td>Variable</td><td>No</td><td>Sin conexión</td><td>AAL3/4 (o AAL5)</td><td>Datos sin conexión, como IP</td></tr>
+  </table></div>
+  <div class="note">AAL1 usa 1 octeto de cabecera en cada celda y deja 47 para la información. AAL5 no tiene cabecera por celda. Agrega al final del mensaje un cierre de 8 octetos con la longitud y un CRC de 32 bits, y por eso es la más usada para datos.</div>
+
+  <!-- SEÑALIZACIÓN Y DIRECCIONAMIENTO -->
+  <h3 class="sub" id="iv_ba_senal">Señalización y direccionamiento</h3>
+  <div class="grid2 even">
+    <div class="panel">
+      <h3><span class="ic">◆</span>Señalización</h3>
+      <p>En banda estrecha la señalización va por el canal D con Q.931. En banda ancha no hay canal D. La señalización va por un <b style="color:var(--white)">canal virtual aparte</b>, con el VPI 0 y el VCI 5 para la señalización punto a punto. El VCI 1 queda para la meta-señalización y el VCI 2 para difusión.</p>
+      <p>El protocolo es Q.2931. Sus mensajes se parecen a los de Q.931: SETUP, CALL PROCEEDING, CONNECT, CONNECT ACKNOWLEDGE, RELEASE y RELEASE COMPLETE. Y agrega el ADD PARTY, para llamadas con varios participantes. Entre centrales se usa B-ISUP.</p>
+    </div>
+    <div class="panel amber">
+      <h3><span class="ic">◆</span>Direccionamiento</h3>
+      <p>Hay dos formas de dar dirección a un terminal. Una es el número E.164, el mismo del teléfono público. La otra es una dirección propia de ATM, de 20 octetos, basada en el formato NSAP.</p>
+      <p>Pero la dirección sirve solo para armar la conexión. Cuando ya existe, las celdas se guían con el VPI y el VCI. Cada conmutador los cambia por otros valores y manda la celda por el puerto que corresponde.</p>
+    </div>
+  </div>
+  <div class="tablewrap" style="margin-top:16px"><table class="spec">
+    <tr><th>Tema</th><th>RDSI de banda estrecha</th><th>RDSI de banda ancha</th></tr>
+    <tr><td class="k">Canal de señalización</td><td>Canal D: 16 kbps en BRI y 64 kbps en PRI</td><td>Canal virtual con VPI 0 y VCI 5</td></tr>
+    <tr><td class="k">Protocolo de acceso</td><td>Q.931 sobre LAPD</td><td>Q.2931 sobre SAAL y AAL5</td></tr>
+    <tr><td class="k">Entre centrales</td><td>ISUP, de SS7</td><td>B-ISUP</td></tr>
+    <tr><td class="k">Direccionamiento</td><td>Número E.164, subdirección y MSN. En el enlace, SAPI y TEI</td><td>E.164 o dirección ATM de 20 octetos. En la conexión, VPI y VCI</td></tr>
+  </table></div>
+
+  <!-- COMPARACIÓN BE vs BA -->
+  <h3 class="sub">Resumen: banda estrecha frente a banda ancha</h3>
+  <div class="tablewrap"><table class="spec">
+    <tr><th>Aspecto</th><th>RDSI-BE (mi diseño)</th><th>RDSI-BA</th></tr>
+    <tr><td class="k">Velocidad</td><td>BRI 144 kbps y PRI 2,048 Mbps (E1)</td><td>155,52 y 622,08 Mbps</td></tr>
+    <tr><td class="k">Unidad de información</td><td>Canal de 64 kbps (intervalo de tiempo)</td><td>Celda de 53 octetos</td></tr>
+    <tr><td class="k">Conmutación</td><td>De circuitos</td><td>De celdas (ATM)</td></tr>
+    <tr><td class="k">Canales</td><td>B, D y H</td><td>Caminos y canales virtuales (VPI y VCI)</td></tr>
+    <tr><td class="k">Medio</td><td>Par de cobre (BRI) y E1</td><td>Fibra óptica</td></tr>
+    <tr><td class="k">Puntos de referencia</td><td>R, S, T y U</td><td>S<sub>B</sub>, T<sub>B</sub> y U</td></tr>
+    <tr><td class="k">Servicios</td><td>Voz, fax, datos a 128 kbps, videoconferencia básica</td><td>Video de alta calidad, datos a alta velocidad, interconexión de redes, multimedia</td></tr>
+  </table></div>
+</section>
+
 <section id="iv_comparacion">
-  <div class="sec-tag"><span class="num">06</span> Comparación</div>
+  <div class="sec-tag"><span class="num">07</span> Comparación</div>
   <h2 class="sec-title">RDSI frente a SS7</h2>
   <p class="lead">Las dos son señalización fuera de banda. Separan el control de la información. Pero no compiten. Trabajan en tramos distintos de la misma llamada.</p>
 
@@ -1497,8 +1682,151 @@ nav.toc .sep{width:1px;background:var(--line);margin:4px 6px}
 </section>
 
 <!-- ===================== EXPLICACIÓN DEL DISEÑO ===================== -->
+<!-- ===================== U4: OBJETIVOS Y CONTENIDO ===================== -->
+<section id="iv_objetivos">
+  <div class="sec-tag"><span class="num">08</span> Objetivos y contenido</div>
+  <h2 class="sec-title">Objetivos y temas de la unidad</h2>
+  <p class="lead">El programa de la Unidad IV tiene un objetivo terminal, dos objetivos específicos y una lista de temas. Aquí los respondo uno por uno y digo en qué parte de la página se ve cada cosa.</p>
+
+  <div class="panel good">
+    <span class="tag good">Objetivo terminal</span>
+    <h3 style="margin-top:8px">Determinar el impacto de los factores de diseño de la RDSI-BE y la RDSI-BA en la eficiencia y las prestaciones de sus servicios</h3>
+    <p style="margin-bottom:0">Lo respondo en la <a href="#iv_factores">tabla de factores de diseño</a> de más abajo, con los números de mi propio diseño.</p>
+  </div>
+  <div class="grid2 even" style="margin-top:18px">
+    <div class="panel">
+      <span class="tag">Objetivo 1</span>
+      <h3>Estudiar los principios de operación de la RDSI de banda estrecha en las comunicaciones de datos</h3>
+      <p style="margin-bottom:0">Está en las secciones 02 a 05, y en la <a href="#iv_datos">sección sobre datos</a> de aquí abajo.</p>
+    </div>
+    <div class="panel hot">
+      <span class="tag hot">Objetivo 2</span>
+      <h3>Evaluar la aplicabilidad de la RDSI como tecnología factible en las telecomunicaciones</h3>
+      <p style="margin-bottom:0">Lo respondo en la <a href="#iv_aplic">evaluación</a>, al final de esta sección.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Los temas del programa y dónde se desarrollan</h3>
+  <div class="tablewrap"><table class="spec">
+    <tr><th>Tema del programa</th><th>Dónde está</th></tr>
+    <tr><td class="k">Redes digitales de servicios integrados, RDSI</td><td>Sección 04, puntos 1 a 5</td></tr>
+    <tr><td class="k">Modelos integradores de voz y datos</td><td><a href="#iv_integra">Más abajo</a></td></tr>
+    <tr><td class="k">Integración con servicios, ofrecido en la arquitectura</td><td><a href="#iv_integra">Más abajo</a> y sección 05</td></tr>
+    <tr><td class="k">Utilización de canales</td><td>Sección 04 (canales B, D y H) y sección 02 (trama E1)</td></tr>
+    <tr><td class="k">Los nodos y los puntos de referencia</td><td>Sección 02 (puntos R, S, T y U)</td></tr>
+    <tr><td class="k">Protocolos de RDSI</td><td>Sección 03 (mensajes Q.931) y sección 05 (pila del canal D y LAPD)</td></tr>
+    <tr><td class="k">Arquitectura RDSI de banda ancha</td><td><a href="#iv_banda">Sección 06</a></td></tr>
+    <tr><td class="k">Configuración · Modelo · Protocolos</td><td>Sección 06: <a href="#iv_ba_config">configuración</a>, <a href="#iv_ba_modelo">modelo</a> y <a href="#iv_ba_proto">protocolos</a></td></tr>
+    <tr><td class="k">Capa física</td><td><a href="#iv_ba_fisica">Sección 06</a></td></tr>
+    <tr><td class="k">Capa ATM</td><td><a href="#iv_ba_atm">Sección 06</a></td></tr>
+    <tr><td class="k">Capa AAL · Capa de adaptación ATM</td><td><a href="#iv_ba_aal">Sección 06</a> (son la misma capa)</td></tr>
+    <tr><td class="k">Señalización y direccionamiento</td><td><a href="#iv_ba_senal">Sección 06</a> (banda ancha) y <a href="#iv_direcc">aquí abajo</a> (banda estrecha)</td></tr>
+  </table></div>
+
+  <!-- MODELOS INTEGRADORES -->
+  <h3 class="sub" id="iv_integra">Modelos integradores de voz y datos</h3>
+  <div class="grid2 even">
+    <div class="panel">
+      <p>Antes de la RDSI había una red para la voz y otras para los datos. Cada una con su cable, su central y su gestión. La RDSI las junta en un solo acceso digital. La voz, el fax, los datos y el video usan la misma línea y se piden a la misma red.</p>
+      <p>Hay dos modelos, según la tecnología de conmutación:</p>
+      <ul class="clean">
+        <li><b>Integración por circuitos (banda estrecha).</b> Todo viaja por canales de 64 kbps. La voz y los datos usan el mismo tipo de canal B. Es simple y el retardo es fijo.</li>
+        <li><b>Integración por celdas (banda ancha).</b> Todo se corta en celdas de 53 octetos con ATM. Se adapta a servicios de velocidad muy distinta.</li>
+      </ul>
+    </div>
+    <div class="panel amber">
+      <h3><span class="ic">◆</span>Cómo se ve en mi diseño</h3>
+      <p>En la sede, una PBX con 200 extensiones. Las llamadas de voz usan los canales B del PRI. Los datos usan los mismos canales B, si hace falta. La señalización de las dos va por el canal D.</p>
+      <p>En una oficina, un teléfono digital, un PC y un fax cuelgan del mismo bus S/T. Todo sale por un solo BRI. Antes hacían falta tres líneas.</p>
+      <p style="margin-bottom:0">La integración con la red pública está en la sección 05: la central local 1 une los accesos con los troncales y con SS7.</p>
+    </div>
+  </div>
+
+  <!-- DATOS -->
+  <h3 class="sub" id="iv_datos">La RDSI de banda estrecha en las comunicaciones de datos</h3>
+  <div class="grid2 even">
+    <div class="panel">
+      <ul class="clean">
+        <li><b>Conexión de datos por circuito.</b> Un canal B da 64 kbps. Se arma una conexión como una llamada, se transfieren datos y se cierra.</li>
+        <li><b>Unir canales.</b> Los dos B de un BRI juntos dan 128 kbps. Es lo que usa mi PC en la oficina.</li>
+        <li><b>Canales H.</b> Un PRI puede juntar canales para datos de más velocidad: H0 a 384 kbps, H11 a 1.536 kbps y H12 a 1.920 kbps.</li>
+        <li><b>Datos por el canal D.</b> Cuando el D tiene espacio libre, puede llevar paquetes de datos con el protocolo X.25.</li>
+        <li><b>Terminales no RDSI.</b> Un PC con puerto serie (V.24 o X.21) entra por un adaptador TA.</li>
+      </ul>
+    </div>
+    <div class="panel good">
+      <h3><span class="ic">◆</span>Lo bueno y lo malo para datos</h3>
+      <p><b style="color:var(--white)">A favor:</b> conexión rápida de unos segundos, una velocidad conocida y sin compartir, y mucha calidad en la línea.</p>
+      <p><b style="color:var(--white)">En contra:</b> 64 o 128 kbps es poco para datos de hoy. Y como es una conexión por circuito, se paga por el tiempo aunque no se mande nada.</p>
+    </div>
+  </div>
+
+  <!-- DIRECCIONAMIENTO -->
+  <h3 class="sub" id="iv_direcc">Señalización y direccionamiento en banda estrecha</h3>
+  <div class="grid2 even">
+    <div class="panel">
+      <p>La señalización es la que ya expliqué: Q.931 sobre LAPD por el canal D. Para el direccionamiento hay tres niveles, uno dentro de otro:</p>
+      <ul class="clean">
+        <li><b>Número de la RDSI.</b> Es un número del plan E.164, como el de cualquier teléfono. Lo marca quien llama.</li>
+        <li><b>Subdirección.</b> Número extra que viaja dentro de la llamada y la red no lo interpreta. Sirve para escoger un equipo dentro del acceso.</li>
+        <li><b>Dirección en el enlace (LAPD).</b> Cada trama lleva un SAPI, que dice qué servicio es (0 para señalización de llamadas, 16 para paquetes, 63 para gestión), y un TEI, que dice qué terminal es.</li>
+      </ul>
+    </div>
+    <div class="panel amber">
+      <h3><span class="ic">◆</span>Varios terminales, un solo acceso</h3>
+      <p>En un BRI pueden conectarse hasta 8 terminales en el bus. Para que cada uno reciba solo sus llamadas existe el MSN, que da varios números a un mismo acceso. Es lo que usé en las oficinas de mi diseño.</p>
+      <p style="margin-bottom:0">El TEI se asigna cuando el terminal se conecta: de 0 a 63 de forma fija, de 64 a 126 en forma automática, y 127 para difusión.</p>
+    </div>
+  </div>
+
+  <!-- FACTORES DE DISEÑO -->
+  <h3 class="sub" id="iv_factores">Factores de diseño y su impacto en la eficiencia y las prestaciones</h3>
+  <p style="color:var(--dim);max-width:900px;margin-top:0">Cada decisión de diseño cambia cuánto rinde la red y cuánto cuesta. Esta tabla junta las decisiones de la banda estrecha, con los números de mi diseño, y los factores de la banda ancha.</p>
+  <div class="tablewrap"><table class="spec">
+    <tr><th>Factor de diseño</th><th>Impacto en eficiencia y prestaciones</th><th>Mi decisión o ejemplo</th></tr>
+    <tr><td class="k">Tipo de acceso (BRI o PRI)</td><td>Cambia la cantidad de canales, el costo por canal y el medio.</td><td>PRI en la sede, que tiene PBX. BRI en las oficinas, que ya tienen el par de cobre.</td></tr>
+    <tr><td class="k">Cantidad de canales B</td><td>Si faltan, las llamadas se bloquean. Si sobran, se paga de más.</td><td>Con 1 BRI una oficina tiene 10,1% de bloqueo. Con 2 BRI baja a 0,3%.</td></tr>
+    <tr><td class="k">Tráfico en hora cargada</td><td>Define cuántos canales hacen falta. Se calcula con Erlang B.</td><td>La sede manda 7,2 Erlang a la red. Un PRI de 30 canales B alcanza.</td></tr>
+    <tr><td class="k">Canal D y señalización</td><td>Si el D se llena, las llamadas tardan en armarse. Con un D por acceso, el control no quita ancho a la voz.</td><td>El canal D del PRI es de 64 kbps. Mi carga de Q.931 queda muy por debajo.</td></tr>
+    <tr><td class="k">Respaldo</td><td>Aumenta la disponibilidad, pero tiene costo.</td><td>Un BRI de respaldo en la sede. Si cae el PRI, quedan 2 llamadas.</td></tr>
+    <tr><td class="k">Conmutación (circuitos o celdas)</td><td>Circuitos: retardo fijo y poca flexibilidad. Celdas: se adapta a servicios distintos, pero el encabezado gasta cerca del 9%.</td><td>Banda estrecha por circuitos. Banda ancha por celdas ATM.</td></tr>
+    <tr><td class="k">Velocidad y medio</td><td>Define qué servicios se pueden dar. Banda ancha pide fibra y buena calidad de enlace.</td><td>64 kbps por canal contra 155 Mbps por acceso.</td></tr>
+    <tr><td class="k">Calidad de servicio (QoS)</td><td>En ATM se escoge la clase AAL y la prioridad de las celdas (CLP) para cuidar la voz y el video.</td><td>Voz por AAL1 o AAL2. Datos por AAL5.</td></tr>
+    <tr><td class="k">Integración con otras redes</td><td>Si la RDSI se une bien a la red pública, la llamada es transparente de punta a punta.</td><td>Todo entra por la central local 1 y de ahí sigue con SS7.</td></tr>
+  </table></div>
+  <div class="note">Los números de la tabla salen de la calculadora de la sección 09. Allí puedes cambiar los datos y ver cómo se mueve el bloqueo.</div>
+
+  <!-- APLICABILIDAD -->
+  <h3 class="sub" id="iv_aplic">Evaluación: ¿es la RDSI una tecnología factible?</h3>
+  <div class="grid2 even">
+    <div class="panel good">
+      <h3><span class="ic">◆</span>Lo que sí aporta</h3>
+      <ul class="clean">
+        <li>Voz y datos digitales por la misma línea, con calidad estable.</li>
+        <li>Conexión rápida y señalización separada, que es la base de la telefonía actual.</li>
+        <li>El PRI sigue siendo una buena forma de conectar una central privada a la red pública, con numeración directa a las extensiones.</li>
+        <li>Es un estándar mundial. Los equipos de distintos fabricantes funcionan juntos.</li>
+      </ul>
+    </div>
+    <div class="panel hot">
+      <h3><span class="ic">◆</span>Lo que la limita</h3>
+      <ul class="clean">
+        <li>64 y 128 kbps son poco para los datos de hoy. La banda ancha de acceso por cobre y fibra la dejó atrás.</li>
+        <li>La RDSI-BA con ATM no llegó al usuario final. Se usó mucho dentro de las redes de los operadores, pero el acceso se hizo con IP y Ethernet.</li>
+        <li>Costo por tiempo de conexión y equipos propios.</li>
+        <li>Hoy la voz se lleva cada vez más por IP (VoIP).</li>
+      </ul>
+    </div>
+  </div>
+  <div class="panel" style="margin-top:18px">
+    <h3><span class="ic">◆</span>Mi conclusión</h3>
+    <p>La RDSI es factible donde hay centrales privadas y se necesita mucha voz con calidad y numeración propia. Por eso mi diseño usa un PRI en la sede. Para datos de alta velocidad ya no es la mejor opción, y ahí la fibra con IP la reemplaza.</p>
+    <p style="margin-bottom:0">En mi trabajo con redes de fibra y HFC veo esto de cerca. Los servicios de hoy llegan por IP. Pero la señalización de canal separado, la idea que nació con SS7 y la RDSI, sigue en la base de toda la red de voz.</p>
+  </div>
+</section>
+
 <section id="iv_explicacion">
-  <div class="sec-tag"><span class="num">07</span> Explicación del diseño</div>
+  <div class="sec-tag"><span class="num">09</span> Explicación del diseño</div>
   <h2 class="sec-title">Por qué lo diseñé así</h2>
   <p class="lead">Aquí explico en detalle cada decisión de mi diseño. Al final dejé una calculadora con los datos de mi diseño. Puedes cambiarlos y ver qué pasa.</p>
 
@@ -1510,7 +1838,7 @@ nav.toc .sep{width:1px;background:var(--line);margin:4px 6px}
     <div class="dec"><span class="n">5</span><div><h4>Señalización por el canal D</h4><p>Cada acceso lleva su propio canal D con Q.931 sobre LAPD. En el PRI es el intervalo 16 del E1. Mantuve la regla de separar la voz del control. Los canales B quedan libres para la información.</p></div></div>
     <div class="dec"><span class="n">6</span><div><h4>Respaldo con un BRI</h4><p>Si cae el PRI, la sede queda sin llamadas. Agregué un BRI de respaldo por otra ruta. No cubre las 200 extensiones. Pero mantiene 2 llamadas, las más urgentes. Es la misma idea de los pares en SS7, pero a un costo menor. Puedes probarlo con el botón de falla del diagrama.</p></div></div>
     <div class="dec"><span class="n">7</span><div><h4>Numeración</h4><p>La sede usa un bloque de números con marcación directa a las extensiones. Cada oficina usa varios números en un mismo acceso, con el servicio MSN. Así cada teléfono suena con su propio número y no hace falta una línea por teléfono.</p></div></div>
-    <div class="dec"><span class="n">8</span><div><h4>Empalme con SS7</h4><p>La central local 1 hace la traducción de Q.931 a ISUP. De ahí en adelante la llamada es como cualquier otra de la Unidad III: pasa por el STP, el Tránsito A y llega a la central local 3. Por eso la comparación de la sección anterior no es solo teoría. Pasa dentro de mi diseño.</p></div></div>
+    <div class="dec"><span class="n">8</span><div><h4>Empalme con SS7</h4><p>La central local 1 hace la traducción de Q.931 a ISUP. De ahí en adelante la llamada es como cualquier otra de la Unidad III: pasa por el STP, el Tránsito A y llega a la central local 3. Por eso la comparación de la sección 07 no es solo teoría. Pasa dentro de mi diseño.</p></div></div>
   </div>
 
   <h3 class="sub">Calculadora del diseño</h3>
@@ -1553,7 +1881,7 @@ nav.toc .sep{width:1px;background:var(--line);margin:4px 6px}
 
 <!-- ===================== EN TERRENO ===================== -->
 <section id="iv_vtr">
-  <div class="sec-tag"><span class="num">08</span> Del aula al terreno</div>
+  <div class="sec-tag"><span class="num">10</span> Del aula al terreno</div>
   <h2 class="sec-title">Lo que veo de esto en mi trabajo</h2>
   <p class="lead">La RDSI es una tecnología de los años 80 y 90. Hoy está en retirada. Pero su idea, separar el canal de información del canal de control, la veo todos los días en la red de VTR.</p>
   <div class="vcards">
